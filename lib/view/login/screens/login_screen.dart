@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(210, 228, 253, 1),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         hintText: "Property Code",
-                        hintStyle: TextStyle(color: Colors.grey)),
+                        hintStyle: TextStyle(color: greyColor)),
                   ),
                   const KHeight(size: 0.05),
                   Center(
@@ -154,8 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: size.width * 0.5,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(themeColor),
-                          shape: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(themeColor),
+                          shape: WidgetStateProperty.all(
                             const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
@@ -172,8 +173,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                             if (loginResult['status'] == 'success') {
                               log('Login successful');
+                              // bool isDeveloper = loginResult['user_id'] == '442' ? true : false;
                               Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(
+                                        // isDeveloper: isDevelocper,
+                                        )),
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(

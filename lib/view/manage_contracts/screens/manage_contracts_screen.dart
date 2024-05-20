@@ -6,6 +6,7 @@ import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/contract/screens/contract_screen.dart';
+import 'package:esmartpms/view/home/screens/home_screen.dart';
 
 import 'package:esmartpms/view/invoice_listing/screens/invoice_listing_screen.dart';
 import 'package:esmartpms/view/manage_contracts/widgets/container_text_widget.dart';
@@ -28,7 +29,7 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
     contractController.fetchData().then((data) {
       setState(() {
         _data = data;
-        print(_data);
+        // print(_data);
       });
     }).catchError((error) {
       print('Error fetching data: $error');
@@ -61,41 +62,37 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
               width: double.infinity,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                    (route) => false);
+              },
+              icon: const Icon(
+                Icons.home,
+                color: greyColor,
+                size: 26,
+              ),
+            )
+          ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const CustomText(
                   text: "MANAGE CONTRACTS",
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: themeColor,
+                  textDecoration: TextDecoration.underline,
                 ),
                 const KHeight(size: 0.02),
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: secondaryColor,
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        CustomText(
-                          text: "Mr.Lost and Found Office",
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        CustomText(
-                          text: "Contracts",
-                          fontSize: 20,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -114,7 +111,7 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                                     color: primaryColor,
                                     child: SizedBox(
-                                      height: size.height * 0.34,
+                                      height: size.height * 0.334,
                                       width: size.width * 1,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -147,32 +144,32 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       CustomText(
-                                                        text: "Contract ID :",
-                                                        fontSize: 13,
+                                                        text: "Contract ID",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.019),
                                                       CustomText(
-                                                        text: "Complex No :",
-                                                        fontSize: 13,
+                                                        text: "Complex No",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.019),
                                                       CustomText(
-                                                        text: "Unit No:",
-                                                        fontSize: 13,
+                                                        text: "Unit N",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.019),
                                                       CustomText(
-                                                        text: "Lead ID :",
-                                                        fontSize: 13,
+                                                        text: "Lead ID",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.019),
                                                       CustomText(
-                                                        text: "Sub Division :",
-                                                        fontSize: 13,
+                                                        text: "Sub Division",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       // KHeight(size: 0.019),
@@ -194,43 +191,43 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       CustomText(
-                                                        fontSize: 14,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['row_contract']['contreact_ref_no'],
+                                                        text: ": ${_data['data'][index]['row_contract']['contreact_ref_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 14,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['complex'],
+                                                        text: ": ${_data['data'][index]['complex']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 14,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['unit_no'],
+                                                        text: ": ${_data['data'][index]['unit_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 14,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['lead_id_no'],
+                                                        text: ": ${_data['data'][index]['lead_id_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 14,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['flr_no'],
+                                                        text: ": ${_data['data'][index]['flr_no']}",
                                                         color: greyColor,
                                                       ),
                                                       // const KHeight(size: 0.017),
                                                       // const CustomText(
                                                       //   fontSize: 14,
-                                                      //   fontWeight: FontWeight.w600,
+                                                      //fontWeight: FontWeight.w600,
                                                       //   text: "NO",
                                                       //   color: greyColor,
                                                       // ),
@@ -246,13 +243,13 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                                 ],
                                               ),
                                             ),
-                                            const KHeight(size: 0.014),
+                                            const KHeight(size: 0.015),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 SizedBox(
-                                                  width: size.width * 0.19,
-                                                  height: size.height * 0.03,
+                                                  width: size.width * 0.20,
+                                                  height: size.height * 0.04,
                                                   child: ContainerTextWidget(
                                                     onTap: () {
                                                       Navigator.of(context).push(MaterialPageRoute(
@@ -260,7 +257,7 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                                       ));
                                                     },
                                                     padding: 4,
-                                                    text: "   View",
+                                                    text: "View",
                                                     fontSize: 16,
                                                     bgColor: themeColor,
                                                     textColor: whiteColor,

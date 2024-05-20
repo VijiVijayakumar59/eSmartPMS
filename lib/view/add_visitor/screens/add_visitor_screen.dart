@@ -2,11 +2,15 @@
 
 import 'dart:io';
 
+import 'package:esmartpms/controller/shared_preference_controller.dart';
+import 'package:esmartpms/controller/visitor_controller/add_visitor_controller.dart';
+import 'package:esmartpms/model/visitor_model.dart';
 import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/custom_textform/textform_widget.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -27,15 +31,34 @@ class _AddVisitorScreenState extends State<AddVisitorScreen> {
   TextEditingController complaintDetailsController = TextEditingController();
   TextEditingController solutionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController inTimeController = TextEditingController();
+  TextEditingController outTimeController = TextEditingController();
+  TextEditingController visitorsDescriptionController = TextEditingController();
+  TextEditingController visitorRemarksController = TextEditingController();
+  TextEditingController passNoController = TextEditingController();
+  TextEditingController visitorRequestController = TextEditingController();
+  TextEditingController otherInfoController = TextEditingController();
+  AddVisitorController addVisitorController = AddVisitorController();
+  List<File> selectedVisPhotos = [];
+  List<File> selectedIdPhotos = [];
 
   DateTime selectedDate = DateTime.now();
-  String dropdownValue = 'Complex :';
+  String complexValue = 'Complex :';
+  String unitValue = 'Unit :';
+  String floorValue = 'Floor :';
+  String visitorType = 'Visitor Type :';
+  String closedValue = 'Closed : (Y/N)';
+  String passReturnValue = "Pass Return(Y/N)";
 
-  var complex = [
-    'Complex :',
-    'Complex 1',
-    'Complex 2',
-  ];
+  var complex = ['Complex :', 'Complex 1', 'Complex 2'];
+  var unit = ['Unit :', 'Unit 370', 'Unit 375'];
+  var floor = ['Floor :', 'Floor 97', 'Floor 34'];
+  var visitor = ['Visitor Type :', 'guest', 'guest2'];
+  var closed = ['Closed : (Y/N)', "Yes", "No"];
+  var passReturn = ["Pass Return(Y/N)", "Yes", "No"];
 
   List<File> selectedImages = [];
   final picker = ImagePicker();
@@ -51,7 +74,6 @@ class _AddVisitorScreenState extends State<AddVisitorScreen> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
@@ -80,397 +102,510 @@ class _AddVisitorScreenState extends State<AddVisitorScreen> {
             child: SizedBox(
               height: size.height * 0.9,
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const CustomText(
-                      text: "ADD VISITOR",
-                      fontSize: 21,
-                      color: themeColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    const KHeight(size: 0.02),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              selectDate(context);
-                            },
-                            child: TextFormField(
-                              controller: dateController,
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const CustomText(
+                        text: "ADD VISITOR",
+                        fontSize: 21,
+                        color: themeColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const KHeight(size: 0.02),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                selectDate(context);
+                              },
+                              child: TextFormField(
+                                controller: dateController,
+                                decoration: InputDecoration(
+                                  fillColor: whiteColor,
+                                  contentPadding: const EdgeInsets.all(8),
+                                  prefixIcon: const Icon(Icons.calendar_month),
+                                  labelText: "Issued Date",
+                                  hintText: "Issued Date",
+                                  border: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: blackColor),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select an issued date';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                          const KWidth(size: 0.02),
+                          SizedBox(
+                            width: size.width * 0.46,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a mobile number';
+                                }
+                                return null;
+                              },
+                              controller: mobileController,
+                              hintText: "Mobile *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      CustomTextformWidget(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                        controller: nameController,
+                        hintText: "Name *",
+                        borderColor: greyColor,
+                      ),
+                      const KHeight(size: 0.01),
+                      CustomTextformWidget(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter an address';
+                          }
+                          return null;
+                        },
+                        controller: addressController,
+                        hintText: "Address *",
+                        borderColor: greyColor,
+                      ),
+                      const KHeight(size: 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
                               decoration: InputDecoration(
-                                fillColor: whiteColor,
-                                contentPadding: const EdgeInsets.all(8),
-                                prefixIcon: const Icon(Icons.calendar_month),
-                                labelText: "Issued Date",
-                                hintText: "Issued Date",
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
                                 border: OutlineInputBorder(
                                   borderSide: const BorderSide(color: blackColor),
                                   borderRadius: BorderRadius.circular(14),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        const KWidth(size: 0.02),
-                        SizedBox(
-                          width: size.width * 0.46,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "Mobile *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    // const KHeight(size: 0.01),
-                    CustomTextformWidget(
-                      controller: descriptionController,
-                      hintText: "Name *",
-                      borderColor: greyColor,
-                    ),
-                    const KHeight(size: 0.01),
-                    CustomTextformWidget(
-                      controller: descriptionController,
-                      hintText: "Address *",
-                      borderColor: greyColor,
-                    ),
-                    const KHeight(size: 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                        // const KWidth(size: 0.02),
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const KHeight(size: 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                        // const KWidth(size: 0.02),
-                        SizedBox(
-                          width: size.width * 0.23,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "In-Time *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.23,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "Out-Time *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const KHeight(size: 0.01),
-                    CustomTextformWidget(
-                      controller: descriptionController,
-                      hintText: "Visitors Description *",
-                      borderColor: greyColor,
-                    ),
-                    const KHeight(size: 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                        // const KWidth(size: 0.02),
-
-                        SizedBox(
-                          width: size.width * 0.46,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "Visitor Remarks *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const KHeight(size: 0.01),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.46,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "Pass No *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.46,
-                          child: CustomTextformWidget(
-                            controller: descriptionController,
-                            hintText: "Visitor Request *",
-                            borderColor: greyColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const KHeight(size: 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                        // const KWidth(size: 0.02),
-                        SizedBox(
-                          width: size.width * 0.45,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: dropdownValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const KHeight(size: 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        selectDate(context);
-                      },
-                      child: TextFormField(
-                        controller: dateController,
-                        decoration: InputDecoration(
-                          fillColor: whiteColor,
-                          contentPadding: const EdgeInsets.all(8),
-                          prefixIcon: const Icon(Icons.calendar_month),
-                          labelText: "Date Closed",
-                          hintText: "Date Closed",
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: blackColor),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const KHeight(size: 0.02),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const CustomText(text: "Photo"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor)),
-                              child: const Text('Choose Image'),
-                              onPressed: () {
-                                getImages();
+                              value: complexValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: complex.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  complexValue = newValue!;
+                                });
                               },
                             ),
-                            SizedBox(
-                              height: size.height * 0.04,
-                              width: size.width * 0.4,
-                              child: selectedImages.isNotEmpty
-                                  ? ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: selectedImages.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Image.file(selectedImages[index]),
-                                        );
-                                      },
-                                    )
-                                  : const Center(child: CustomText(text: "No File Chosen")),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const CustomText(
-                          text: "ID Photo",
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor)),
-                              child: const Text('Choose Image'),
-                              onPressed: () {
-                                getImages();
+                          ),
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: blackColor),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              value: floorValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: floor.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  floorValue = newValue!;
+                                });
                               },
                             ),
-                            SizedBox(
-                              height: size.height * 0.04,
-                              width: size.width * 0.4,
-                              child: selectedImages.isNotEmpty
-                                  ? ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: selectedImages.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Image.file(selectedImages[index]),
-                                        );
-                                      },
-                                    )
-                                  : const Center(child: CustomText(text: "No File Chosen")),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const KHeight(size: 0.01),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Other Information *",
+                          ),
+                        ],
                       ),
-                      maxLines: 4,
-                    ),
-                    ElevatedButton(
-                      style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(greenColor)),
-                      onPressed: () {},
-                      child: const CustomText(text: "Submit"),
-                    )
-                  ],
+                      const KHeight(size: 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: blackColor),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              value: unitValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: unit.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  unitValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.23,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter in-time';
+                                }
+                                return null;
+                              },
+                              controller: inTimeController,
+                              hintText: "In-Time *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.23,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter out-time';
+                                }
+                                return null;
+                              },
+                              controller: outTimeController,
+                              hintText: "Out-Time *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const KHeight(size: 0.01),
+                      CustomTextformWidget(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a visitors description';
+                          }
+                          return null;
+                        },
+                        controller: visitorsDescriptionController,
+                        hintText: "Visitors Description *",
+                        borderColor: greyColor,
+                      ),
+                      const KHeight(size: 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: blackColor),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              value: visitorType,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: visitor.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  visitorType = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.46,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter visitor remarks';
+                                }
+                                return null;
+                              },
+                              controller: visitorRemarksController,
+                              hintText: "Visitor Remarks *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const KHeight(size: 0.01),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.46,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter pass no';
+                                }
+                                return null;
+                              },
+                              controller: passNoController,
+                              hintText: "Pass No *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.46,
+                            child: CustomTextformWidget(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter visitor request';
+                                }
+                                return null;
+                              },
+                              controller: visitorRequestController,
+                              hintText: "Visitor Request *",
+                              borderColor: greyColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const KHeight(size: 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.02),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: blackColor),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              value: closedValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: closed.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  closedValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.45,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.02),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: blackColor),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              value: passReturnValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: passReturn.map((String item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  passReturnValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const KHeight(size: 0.02),
+                      GestureDetector(
+                        onTap: () {
+                          selectDate(context);
+                        },
+                        child: TextFormField(
+                          controller: dateController,
+                          decoration: InputDecoration(
+                            fillColor: whiteColor,
+                            contentPadding: const EdgeInsets.all(8),
+                            prefixIcon: const Icon(Icons.calendar_month),
+                            labelText: "Date Closed",
+                            hintText: "Date Closed",
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: blackColor),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a date closed';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const KHeight(size: 0.02),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const CustomText(text: "Photo"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                style: ButtonStyle(backgroundColor: WidgetStateProperty.all(themeColor)),
+                                child: const Text('Choose Image'),
+                                onPressed: () {
+                                  getImages(selectedVisPhotos);
+                                },
+                              ),
+                              SizedBox(
+                                height: size.height * 0.04,
+                                width: size.width * 0.4,
+                                child: selectedImages.isNotEmpty
+                                    ? ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: selectedImages.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                            child: Image.file(selectedImages[index]),
+                                          );
+                                        },
+                                      )
+                                    : const Center(child: CustomText(text: "No File Chosen")),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const CustomText(
+                            text: "ID Photo",
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                style: ButtonStyle(backgroundColor: WidgetStateProperty.all(themeColor)),
+                                child: const Text('Choose Image'),
+                                onPressed: () {
+                                  getImages(selectedIdPhotos);
+                                },
+                              ),
+                              SizedBox(
+                                height: size.height * 0.04,
+                                width: size.width * 0.4,
+                                child: selectedImages.isNotEmpty
+                                    ? ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: selectedImages.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                            child: Image.file(selectedImages[index]),
+                                          );
+                                        },
+                                      )
+                                    : const Center(child: CustomText(text: "No File Chosen")),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const KHeight(size: 0.01),
+                      TextFormField(
+                        controller: otherInfoController,
+                        decoration: const InputDecoration(
+                          hintText: "Other Information *",
+                        ),
+                        maxLines: 4,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter other information';
+                          }
+                          return null;
+                        },
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: greenColor,
+                        ),
+                        onPressed: () async {
+                          final token = await SharedPrefController().getUserId();
+
+                          if (formKey.currentState!.validate()) {
+                            VisitorModel visitorModel = VisitorModel(
+                                issueDate: dateController.text,
+                                name: nameController.text,
+                                mobile: mobileController.text,
+                                address: addressController.text,
+                                floorNo: floorValue,
+                                unitNo: unitValue,
+                                inTime: inTimeController.text,
+                                outTime: outTimeController.text,
+                                description: descriptionController.text,
+                                type: visitorType,
+                                remarks: visitorRemarksController.text,
+                                request: visitorRequestController.text,
+                                passNo: passNoController.text,
+                                closed: closedValue,
+                                complex: complexValue,
+                                idPhoto: [],
+                                visPhoto: [],
+                                passReturn: passReturnValue,
+                                otherInfo: otherInfoController.text,
+                                owner: token!);
+                            // Form is valid, proceed with further actions
+                            await addVisitorController.addVisitor(visitorModel).then((value) {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                  (route) => false);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Form submitted successfully')),
+                              );
+                            }).onError((e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            });
+                          }
+                        },
+                        child: const CustomText(text: "Submit"),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -495,7 +630,7 @@ class _AddVisitorScreenState extends State<AddVisitorScreen> {
     }
   }
 
-  Future<void> getImages() async {
+  Future<void> getImages(List<File> imageList) async {
     final pickedFiles = await picker.pickMultiImage(
       requestFullMetadata: true,
       imageQuality: 100,
@@ -505,9 +640,9 @@ class _AddVisitorScreenState extends State<AddVisitorScreen> {
 
     setState(() {
       if (pickedFiles != null) {
-        selectedImages.clear();
+        imageList.clear();
         pickedFiles.forEach((pickedFile) {
-          selectedImages.add(File(pickedFile.path));
+          imageList.add(File(pickedFile.path));
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -38,22 +38,25 @@ class TextWithIconWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             )),
         onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor,
-                fontSize: fontSize,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
+                ),
               ),
-            ),
-            Icon(
-              icon,
-              color: iconColor,
-              size: iconSize,
-            )
-          ],
+              Icon(
+                icon,
+                color: iconColor,
+                size: iconSize,
+              )
+            ],
+          ),
         ),
       ),
     );

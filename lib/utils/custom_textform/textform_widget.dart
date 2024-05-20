@@ -8,16 +8,18 @@ class CustomTextformWidget extends StatelessWidget {
     required this.hintText,
     this.textColor,
     this.borderColor,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String hintText;
   final Color? textColor;
   final Color? borderColor;
-
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
@@ -27,17 +29,17 @@ class CustomTextformWidget extends StatelessWidget {
           letterSpacing: 0.8,
         ),
         hintMaxLines: 1,
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: borderColor!),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: whiteColor),
-        ),
+        // enabledBorder: UnderlineInputBorder(
+        //   borderSide: BorderSide(color: borderColor!),
+        // ),
+        // focusedBorder: const UnderlineInputBorder(
+        //   borderSide: BorderSide(color: whiteColor),
+        // ),
         border: const UnderlineInputBorder(
           borderSide: BorderSide(color: whiteColor),
         ),
       ),
-      style: const TextStyle(color: whiteColor),
+      style: const TextStyle(color: blackColor),
     );
   }
 }

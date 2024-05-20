@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? loggedIn;
-
+  bool? isDeveloper;
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> checkLogin() async {
     final result = await SharedPrefController().isLoggedIn();
+    final isDev = await SharedPrefController().getUserId();
     setState(() {
+      isDeveloper = isDev == '440' ? true : false;
       loggedIn = result;
     });
   }
@@ -42,7 +44,11 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: false,
       ),
-      home: loggedIn == true ? const HomeScreen() : const LoginScreen(),
+      home: loggedIn == true
+          ? const HomeScreen(
+              // isDeveloper: isDeveloper!,
+              )
+          : const LoginScreen(),
     );
   }
 }

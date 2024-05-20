@@ -25,8 +25,9 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
     super.initState();
     dealController.fetchData().then((data) {
       setState(() {
+        data['data'].sort((a, b) => DateTime.parse(b['added_date']).compareTo(DateTime.parse(a['added_date'])));
+
         _data = data;
-        // print(_data);
       });
     }).catchError((error) {
       print('Error fetching data: $error');
@@ -36,280 +37,320 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          children: [
-            _data.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: _data['data'].length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 18),
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                          color: primaryColor,
-                          child: SizedBox(
-                            height: size.height * 0.3,
-                            width: size.width * 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Row(
-                                  //       children: [
-                                  //         const CustomText(
-                                  //           text: "Start Date : ",
-                                  //           fontSize: 12,
-                                  //           color: greyColor,
-                                  //         ),
-                                  //         CustomText(
-                                  //           text: _data['data'][index]['added_date'],
-                                  //           fontSize: 12,
-                                  //           color: greenColor,
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextWithIconWidget(
-                                        bgColor: themeColor,
-                                        height: 0.023,
-                                        width: 0.24,
-                                        onPressed: () {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => const DealsViewScreen(),
-                                          ));
-                                        },
-                                        fontSize: 12,
-                                        text: "View ",
-                                        icon: Icons.visibility_outlined,
-                                        iconSize: 14,
-                                        iconColor: whiteColor,
-                                        textColor: whiteColor,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: blackColor,
+            )),
+        backgroundColor: whiteColor,
+        elevation: 2,
+        automaticallyImplyLeading: false,
+        title: Center(
+          child: Image.asset(
+            "assets/images/PMSlogo.png",
+            fit: BoxFit.contain,
+            height: size.height * 0.064,
+            width: double.infinity,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const CustomText(
+                text: "MANAGE DEALS",
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: themeColor,
+                textDecoration: TextDecoration.underline,
+              ),
+              const KHeight(size: 0.01),
+              _data.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _data['data'].length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 18),
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                            color: primaryColor,
+                            child: SizedBox(
+                              height: size.height * 0.3,
+                              width: size.width * 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Row(
+                                    //       children: [
+                                    //         const CustomText(
+                                    //           text: "Start Date : ",
+                                    //           fontSize: 12,
+                                    //           color: greyColor,
+                                    //         ),
+                                    //         CustomText(
+                                    //           text: _data['data'][index]['added_date'],
+                                    //           fontSize: 12,
+                                    //           color: greenColor,
+                                    //         ),
+                                    //       ],
+                                    //     ),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.end,
+                                    //   children: [
+                                    //     TextWithIconWidget(
+                                    //       bgColor: themeColor,
+                                    //       height: 0.023,
+                                    //       width: 0.24,
+                                    //       onPressed: () {
+                                    //         Navigator.of(context).push(MaterialPageRoute(
+                                    //           builder: (context) => const DealsViewScreen(),
+                                    //         ));
+                                    //       },
+                                    //       fontSize: 12,
+                                    //       text: "View ",
+                                    //       icon: Icons.visibility_outlined,
+                                    //       iconSize: 14,
+                                    //       iconColor: whiteColor,
+                                    //       textColor: whiteColor,
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    //   ],
+                                    // ),
+                                    // const KHeight(size: 0.01),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Row(
+                                    //       children: [
+                                    //         const CustomText(
+                                    //           text: "End Date : ",
+                                    //           fontSize: 12,
+                                    //           color: greyColor,
+                                    //         ),
+                                    //         CustomText(
+                                    //           text: _data['data'][index]['row_contract']['contract_date'],
+                                    //           fontSize: 12,
+                                    //           color: greenColor,
+                                    //         ),
+                                    //       ],
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                text: "Deal ID",
+                                                fontSize: 16,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Lead ID",
+                                                fontSize: 16,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Complex",
+                                                fontSize: 16,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Sub Division",
+                                                fontSize: 16,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Unit ",
+                                                fontSize: 16,
+                                                color: greyColor,
+                                              ),
+                                              // KHeight(size: 0.02),
+                                              // CustomText(
+                                              //   text: "Renter :",
+                                              //   fontSize: 13,
+                                              //   color: greyColor,
+                                              // ),
+                                              // KHeight(size: 0.02),
+                                              // CustomText(
+                                              //   text: "Status :",
+                                              //   fontSize: 13,
+                                              //   color: greyColor,
+                                              // ),
+                                              // KHeight(size: 0.02),
+                                              // CustomText(
+                                              //   text: "Type :",
+                                              //   fontSize: 13,
+                                              //   color: greyColor,
+                                              // ),
+                                              // KHeight(size: 0.02),
+                                              // CustomText(
+                                              //   text: "Active/Inactive :",
+                                              //   fontSize: 13,
+                                              //   color: greyColor,
+                                              // ),
+                                              // KHeight(size: 0.02),
+                                              // CustomText(
+                                              //   text: "Action :",
+                                              //   fontSize: 13,
+                                              //   color: greyColor,
+                                              // ),
+                                            ],
+                                          ),
+                                          const KWidth(size: 0.04),
+                                          const KHeight(size: 0.04),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                text: ": ${_data['data'][index]['call_checklist_id']}",
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.018),
+                                              CustomText(
+                                                text: ": ${_data['data'][index]['lead_id_no']}",
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.018),
+                                              CustomText(
+                                                text: ": ${_data['data'][index]['complex']}",
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.018),
+                                              CustomText(
+                                                text: ': ${_data['data'][index]['flr_no']}',
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.018),
+                                              CustomText(
+                                                text: ': ${_data['data'][index]['unit_no']}',
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.018),
+                                              // CustomText(
+                                              //   text: _data['data'][index]['renter_tbl_id'],
+                                              //   fontSize: 14,
+                                              //   fontWeight: FontWeight.w600,
+                                              //   color: greyColor,
+                                              // ),
+                                              // const KHeight(size: 0.018),
+                                              // const ContainerTextWidget(
+                                              //   padding: 3,
+                                              //   text: "334 - 302 days",
+                                              //   bgColor: greenColor,
+                                              //   textColor: whiteColor,
+                                              // ),
+                                              // const KHeight(size: 0.018),
+                                              // const CustomText(
+                                              //   text: "Null",
+                                              //   fontSize: 14,
+                                              //   fontWeight: FontWeight.w600,
+                                              //   color: greyColor,
+                                              // ),
+                                              // const KHeight(size: 0.018),
+                                              // const CustomText(
+                                              //   text: "Null",
+                                              //   fontSize: 14,
+                                              //   fontWeight: FontWeight.w600,
+                                              //   color: greyColor,
+                                              // ),
+                                              // const KHeight(size: 0.018),
+                                              // const CustomText(
+                                              //   text: "Null",
+                                              //   fontSize: 14,
+                                              //   fontWeight: FontWeight.w600,
+                                              //   color: greyColor,
+                                              // ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  //   ],
-                                  // ),
-                                  // const KHeight(size: 0.01),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Row(
-                                  //       children: [
-                                  //         const CustomText(
-                                  //           text: "End Date : ",
-                                  //           fontSize: 12,
-                                  //           color: greyColor,
-                                  //         ),
-                                  //         CustomText(
-                                  //           text: _data['data'][index]['row_contract']['contract_date'],
-                                  //           fontSize: 12,
-                                  //           color: greenColor,
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    ),
+                                    const KHeight(size: 0.003),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        const Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            CustomText(
-                                              text: "Deal ID :",
-                                              fontSize: 13,
-                                              color: greyColor,
-                                            ),
-                                            KHeight(size: 0.02),
-                                            CustomText(
-                                              text: "Lead ID :",
-                                              fontSize: 13,
-                                              color: greyColor,
-                                            ),
-                                            KHeight(size: 0.02),
-                                            CustomText(
-                                              text: "Complex :",
-                                              fontSize: 13,
-                                              color: greyColor,
-                                            ),
-                                            KHeight(size: 0.02),
-                                            CustomText(
-                                              text: "Sub Division :",
-                                              fontSize: 13,
-                                              color: greyColor,
-                                            ),
-                                            KHeight(size: 0.02),
-                                            CustomText(
-                                              text: "Unit  :",
-                                              fontSize: 13,
-                                              color: greyColor,
-                                            ),
-                                            // KHeight(size: 0.02),
-                                            // CustomText(
-                                            //   text: "Renter :",
-                                            //   fontSize: 13,
-                                            //   color: greyColor,
-                                            // ),
-                                            // KHeight(size: 0.02),
-                                            // CustomText(
-                                            //   text: "Status :",
-                                            //   fontSize: 13,
-                                            //   color: greyColor,
-                                            // ),
-                                            // KHeight(size: 0.02),
-                                            // CustomText(
-                                            //   text: "Type :",
-                                            //   fontSize: 13,
-                                            //   color: greyColor,
-                                            // ),
-                                            // KHeight(size: 0.02),
-                                            // CustomText(
-                                            //   text: "Active/Inactive :",
-                                            //   fontSize: 13,
-                                            //   color: greyColor,
-                                            // ),
-                                            // KHeight(size: 0.02),
-                                            // CustomText(
-                                            //   text: "Action :",
-                                            //   fontSize: 13,
-                                            //   color: greyColor,
-                                            // ),
-                                          ],
+                                        // const ContainerTextWidget(
+                                        //   padding: 4,
+                                        //   text: "Documents",
+                                        //   fontSize: 16,
+                                        //   bgColor: yellowColor,
+                                        //   textColor: whiteColor,
+                                        // ),
+                                        TextWithIconWidget(
+                                          bgColor: themeColor,
+                                          height: 0.039,
+                                          width: 0.29,
+                                          onPressed: () {
+                                            Navigator.of(context).push(MaterialPageRoute(
+                                              builder: (context) => const DealsViewScreen(),
+                                            ));
+                                          },
+                                          fontSize: 16,
+                                          text: "View ",
+                                          icon: Icons.visibility_outlined,
+                                          iconSize: 16,
+                                          iconColor: whiteColor,
+                                          textColor: whiteColor,
                                         ),
-                                        const KWidth(size: 0.04),
-                                        const KHeight(size: 0.04),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            CustomText(
-                                              text: _data['data'][index]['call_checklist_id'],
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: greyColor,
-                                            ),
-                                            const KHeight(size: 0.018),
-                                            CustomText(
-                                              text: _data['data'][index]['lead_id_no'],
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: greyColor,
-                                            ),
-                                            const KHeight(size: 0.018),
-                                            CustomText(
-                                              text: _data['data'][index]['complex'],
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: greyColor,
-                                            ),
-                                            const KHeight(size: 0.018),
-                                            CustomText(
-                                              text: _data['data'][index]['flr_no'],
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: greyColor,
-                                            ),
-                                            const KHeight(size: 0.018),
-                                            CustomText(
-                                              text: _data['data'][index]['unit_no'],
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: greyColor,
-                                            ),
-                                            const KHeight(size: 0.018),
-                                            // CustomText(
-                                            //   text: _data['data'][index]['renter_tbl_id'],
-                                            //   fontSize: 14,
-                                            //   fontWeight: FontWeight.w600,
-                                            //   color: greyColor,
-                                            // ),
-                                            // const KHeight(size: 0.018),
-                                            // const ContainerTextWidget(
-                                            //   padding: 3,
-                                            //   text: "334 - 302 days",
-                                            //   bgColor: greenColor,
-                                            //   textColor: whiteColor,
-                                            // ),
-                                            // const KHeight(size: 0.018),
-                                            // const CustomText(
-                                            //   text: "Null",
-                                            //   fontSize: 14,
-                                            //   fontWeight: FontWeight.w600,
-                                            //   color: greyColor,
-                                            // ),
-                                            // const KHeight(size: 0.018),
-                                            // const CustomText(
-                                            //   text: "Null",
-                                            //   fontSize: 14,
-                                            //   fontWeight: FontWeight.w600,
-                                            //   color: greyColor,
-                                            // ),
-                                            // const KHeight(size: 0.018),
-                                            // const CustomText(
-                                            //   text: "Null",
-                                            //   fontSize: 14,
-                                            //   fontWeight: FontWeight.w600,
-                                            //   color: greyColor,
-                                            // ),
-                                          ],
+                                        ContainerTextWidget(
+                                          onTap: () {
+                                            Navigator.of(context).push(MaterialPageRoute(
+                                              builder: (context) => const ManageContractScreen(),
+                                            ));
+                                          },
+                                          padding: 4,
+                                          text: "View Contract",
+                                          fontSize: 16,
+                                          bgColor: themeColor,
+                                          textColor: whiteColor,
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  const KHeight(size: 0.01),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      // const ContainerTextWidget(
-                                      //   padding: 4,
-                                      //   text: "Documents",
-                                      //   fontSize: 16,
-                                      //   bgColor: yellowColor,
-                                      //   textColor: whiteColor,
-                                      // ),
-                                      ContainerTextWidget(
-                                        onTap: () {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => const ManageContractScreen(),
-                                          ));
-                                        },
-                                        padding: 4,
-                                        text: "View Contract",
-                                        fontSize: 16,
-                                        bgColor: yellowColor,
-                                        textColor: whiteColor,
-                                      ),
-                                      //   const ContainerTextWidget(
-                                      //     padding: 4,
-                                      //     text: "Receipts",
-                                      //     fontSize: 16,
-                                      //     bgColor: yellowColor,
-                                      //     textColor: whiteColor,
-                                      //   ),
-                                    ],
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-          ],
+                        );
+                      },
+                    ),
+            ],
+          ),
         ),
       ),
     );

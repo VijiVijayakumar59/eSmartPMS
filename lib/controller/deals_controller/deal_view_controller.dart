@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:esmartpms/controller/shared_preference_controller.dart';
@@ -36,7 +38,7 @@ class DealViewController {
     } catch (error) {
       // Handle error
       print('Error: $error');
-      throw error; // Rethrow the error to handle it in the calling function
+      rethrow; // Rethrow the error to handle it in the calling function
     }
   }
 }

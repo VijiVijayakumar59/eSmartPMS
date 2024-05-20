@@ -1,3 +1,3 @@
-import 'package:esmartpms/model/contract_model.dart';
+// import 'package:esmartpms/model/contract_model.dart';
 
-List<ContractModel> list = [];
+// List<ContractModel> list = [];

@@ -1,18 +1,14 @@
-// ignore_for_file: use_rethrow_when_possible, avoid_print
+// ignore_for_file: avoid_print, use_rethrow_when_possible
 
 import 'dart:convert';
-import 'dart:developer';
-import 'package:esmartpms/controller/shared_preference_controller.dart';
 import 'package:http/http.dart' as http;
 
-class ReceiptController {
-  Future<Map<String, dynamic>> fetchReceipt() async {
-    final token = await SharedPrefController().getUserId();
+class InvoiceViewController {
+  Future<Map<String, dynamic>> getSingleInvoice(String invoiceId) async {
+    final url = Uri.parse('https://epenhasia.com/api/view_invoice.php');
 
-    final url = Uri.parse('https://epenhasia.com/api/view_reciept.php');
-    final Map<String, dynamic> payload = {
-      'lead_id': token,
-    };
+    // JSON payload for the POST request
+    final Map<String, dynamic> payload = {"invoice_id": invoiceId};
 
     try {
       final response = await http.post(
@@ -25,7 +21,7 @@ class ReceiptController {
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        log(jsonResponse.toString());
+        // log(jsonResponse.toString());
         return jsonResponse;
       } else {
         // If the server did not return a 200 OK response,

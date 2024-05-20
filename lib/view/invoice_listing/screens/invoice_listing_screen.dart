@@ -1,10 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'package:esmartpms/controller/invoice_controller/invoice_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:esmartpms/view/invoice/screens/invoice_screen.dart';
 import 'package:esmartpms/view/manage_contracts/widgets/container_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +18,17 @@ class InvoiceListingScreen extends StatefulWidget {
 class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
   InvoiceController invoiceController = InvoiceController();
   Map<String, dynamic> _data = {};
+  String? invoiceId;
+
   @override
   void initState() {
     super.initState();
     invoiceController.fetchInvoices().then((data) {
       setState(() {
+        // Sort the invoices by the latest date first
+        data['data'].sort((a, b) => DateTime.parse(b['invoice_date']).compareTo(DateTime.parse(a['invoice_date'])));
         _data = data;
+        invoiceId = data['invoice_id'];
         // print(_data);
       });
     }).catchError((error) {
@@ -58,45 +62,57 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
               width: double.infinity,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                    (route) => false);
+              },
+              icon: const Icon(
+                Icons.home,
+                color: greyColor,
+                size: 26,
+              ),
+            )
+          ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const CustomText(
                   text: "INVOICE LISTING",
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: themeColor,
+                  textDecoration: TextDecoration.underline,
                 ),
-                const KHeight(size: 0.02),
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: secondaryColor,
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        CustomText(
-                          text: "Mr.Wang Weidong, S-CON/2021-006",
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        CustomText(
-                          text: "01/07/2021 - 30/06/2022",
-                          fontSize: 18,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                const KHeight(size: 0.004),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: secondaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: CustomText(
+                            text: "Total Invoices : ${_data['data'] != null ? _data['data'].length : 0}",
+                            color: blackColor,
+                          ),
+                        ),
+                      ),
+                      const KHeight(size: 0.01),
                       _data.isEmpty
                           ? const Center(child: CircularProgressIndicator())
                           : ListView.builder(
@@ -111,7 +127,7 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                                     color: primaryColor,
                                     child: SizedBox(
-                                      height: size.height * 0.4,
+                                      height: size.height * 0.38,
                                       width: size.width * 1,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -137,58 +153,40 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       CustomText(
-                                                        text: "Invoice No :",
-                                                        fontSize: 13,
+                                                        text: "Invoice No",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.02),
                                                       CustomText(
-                                                        text: "Issue Date :",
-                                                        fontSize: 13,
+                                                        text: "Issue Date",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.02),
                                                       CustomText(
-                                                        text: "Complex :",
-                                                        fontSize: 13,
+                                                        text: "Complex",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.02),
                                                       CustomText(
-                                                        text: "Sub Division :",
-                                                        fontSize: 13,
+                                                        text: "Sub Division",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.02),
                                                       CustomText(
-                                                        text: "Unit :",
-                                                        fontSize: 13,
+                                                        text: "Unit",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.02),
                                                       CustomText(
-                                                        text: "Invoice Amount :",
-                                                        fontSize: 13,
+                                                        text: "Invoice Amount",
+                                                        fontSize: 16,
                                                         color: greyColor,
                                                       ),
-                                                      KHeight(size: 0.02),
-                                                      // CustomText(
-                                                      //   text: "Balance Amount Paid :",
-                                                      //   fontSize: 13,
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // KHeight(size: 0.02),
-                                                      // CustomText(
-                                                      //   text: "Status :",
-                                                      //   fontSize: 13,
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // KHeight(size: 0.02),
-                                                      // CustomText(
-                                                      //   text: "Balance :",
-                                                      //   fontSize: 13,
-                                                      //   color: greyColor,
-                                                      // ),
                                                     ],
                                                   ),
                                                   const KWidth(size: 0.04),
@@ -197,67 +195,46 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['invoice_no'],
+                                                        text: ": ${_data['data'][index]['invoice_no']}",
                                                         color: greyColor,
                                                       ),
-                                                      const KHeight(size: 0.015),
+                                                      const KHeight(size: 0.018),
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['invoice_date'],
+                                                        text: ": ${_data['data'][index]['invoice_date']}",
                                                         color: greyColor,
                                                       ),
-                                                      const KHeight(size: 0.015),
+                                                      const KHeight(size: 0.018),
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['complex'],
+                                                        text: ": ${_data['data'][index]['complex']}",
                                                         color: greyColor,
                                                       ),
-                                                      const KHeight(size: 0.015),
+                                                      const KHeight(size: 0.018),
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['flr_no'],
+                                                        text: ": ${_data['data'][index]['flr_no']}",
                                                         color: greyColor,
                                                       ),
-                                                      const KHeight(size: 0.015),
+                                                      const KHeight(size: 0.018),
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['unit_no'],
+                                                        text: ": ${_data['data'][index]['unit_no']}",
                                                         color: greyColor,
                                                       ),
-                                                      const KHeight(size: 0.015),
+                                                      const KHeight(size: 0.018),
                                                       CustomText(
-                                                        fontSize: 17,
+                                                        fontSize: 18,
                                                         fontWeight: FontWeight.w600,
-                                                        text: _data['data'][index]['invoice_net_total'],
+                                                        text: ": ${_data['data'][index]['invoice_net_total']}",
                                                         color: greyColor,
                                                       ),
-                                                      // const KHeight(size: 0.0126),
-                                                      // CustomText(
-                                                      //   fontSize: 17,
-                                                      //   fontWeight: FontWeight.w600,
-                                                      //   text: _data['data'][index]['invoice_net_total'],
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // const KHeight(size: 0.0126),
-                                                      // CustomText(
-                                                      //   fontSize: 17,
-                                                      //   fontWeight: FontWeight.w600,
-                                                      //   text: _data['data'][index]['invoice_net_total'],
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // const KHeight(size: 0.0126),
-                                                      // CustomText(
-                                                      //   fontSize: 17,
-                                                      //   fontWeight: FontWeight.w600,
-                                                      //   text: _data['data'][index]['invoice_net_total'],
-                                                      //   color: greyColor,
-                                                      // ),
                                                       const KHeight(size: 0.0126),
                                                     ],
                                                   ),
@@ -267,22 +244,6 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
-                                                // SizedBox(
-                                                //   width: size.width * 0.19,
-                                                //   height: size.height * 0.03,
-                                                //   child: ContainerTextWidget(
-                                                //     onTap: () {
-                                                //       Navigator.of(context).push(MaterialPageRoute(
-                                                //         builder: (context) => const InvoiceScreen(),
-                                                //       ));
-                                                //     },
-                                                //     padding: 4,
-                                                //     text: "    View",
-                                                //     fontSize: 16,
-                                                //     bgColor: yellowColor,
-                                                //     textColor: whiteColor,
-                                                //   ),
-                                                // ),
                                                 const ContainerTextWidget(
                                                   padding: 4,
                                                   text: "Generate PDF",
@@ -293,7 +254,9 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                                 ContainerTextWidget(
                                                   onTap: () {
                                                     Navigator.of(context).push(MaterialPageRoute(
-                                                      builder: (context) => const InvoiceScreen(),
+                                                      builder: (context) => InvoiceScreen(
+                                                        invoiceId: _data['data'][index]['invoice_id'],
+                                                      ),
                                                     ));
                                                   },
                                                   padding: 4,

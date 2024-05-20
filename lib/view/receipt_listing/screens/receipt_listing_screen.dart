@@ -5,6 +5,7 @@ import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:esmartpms/view/manage_contracts/widgets/container_text_widget.dart';
 import 'package:esmartpms/view/receipt_invoice/screens/receipt_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,11 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
     super.initState();
     receiptController.fetchReceipt().then((data) {
       setState(() {
-        _data = data;
-        // print(_data);
+        setState(() {
+          data['data'].sort((a, b) => DateTime.parse(b['receipt_date']).compareTo(DateTime.parse(a['receipt_date'])));
+
+          _data = data;
+        });
       });
     }).catchError((error) {
       print('Error fetching data: $error');
@@ -58,6 +62,23 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
             width: double.infinity,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                  (route) => false);
+            },
+            icon: const Icon(
+              Icons.home,
+              color: greyColor,
+              size: 26,
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -66,33 +87,12 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
             children: [
               const CustomText(
                 text: "RECEIPT",
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
                 color: themeColor,
+                textDecoration: TextDecoration.underline,
               ),
-              const KHeight(size: 0.02),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: secondaryColor,
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      CustomText(
-                        text: "Mr.Wang Weidong, S-CON/2021-006",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      CustomText(
-                        text: "01/07/2021 - 30/06/2022",
-                        fontSize: 18,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              const KHeight(size: 0.01),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -137,49 +137,48 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     CustomText(
-                                                      text: "Receipt No :",
+                                                      text: "Receipt No",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Receipt Date :",
+                                                      text: "Receipt Date",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Complex :",
+                                                      text: "Complex",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Sub Division :",
+                                                      text: "Sub Division",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Unit :",
+                                                      text: "Unit",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Payment Method :",
+                                                      text: "Payment Method",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
                                                     // KHeight(size: 0.02),
                                                     // CustomText(
-                                                    //   text: "Remarks :",
-                                                    //   fontSize: 13,
+                                                    //   text: "Remarks :"                                                    //   fontSize: 13,
                                                     //   color: greyColor,
                                                     // ),
                                                     KHeight(size: 0.02),
                                                     CustomText(
-                                                      text: "Amount :",
+                                                      text: "Amount",
                                                       fontSize: 13,
                                                       color: greyColor,
                                                     ),
@@ -199,56 +198,56 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['receipt_no'],
+                                                      text: ": ${_data['data'][index]['receipt_no']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['receipt_date'],
+                                                      text: ": ${_data['data'][index]['receipt_date']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['complex'],
+                                                      text: ": ${_data['data'][index]['complex']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['flr_no'],
+                                                      text: ": ${_data['data'][index]['flr_no']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['unit_no'],
+                                                      text: ": ${_data['data'][index]['unit_no']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['receipt_payment_method'],
+                                                      text: ": ${_data['data'][index]['receipt_payment_method']}",
                                                       color: greyColor,
                                                     ),
                                                     // const KHeight(size: 0.0126),
                                                     // CustomText(
                                                     //   fontSize: 17,
                                                     //   fontWeight: FontWeight.w600,
-                                                    //   text: _data['data'][index]['unit_no'],
-                                                    //   color: greyColor,
+                                                    //   text: ": ${_data['data'][index]['unit_no'],
+//  }"                                                   //   color: greyColor,
                                                     // ),
                                                     const KHeight(size: 0.0126),
                                                     CustomText(
                                                       fontSize: 17,
                                                       fontWeight: FontWeight.w600,
-                                                      text: _data['data'][index]['receipt_net_amount_paid'],
+                                                      text: ": ${_data['data'][index]['receipt_net_amount_paid']}",
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.026),
@@ -268,16 +267,18 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                                             children: [
                                               SizedBox(
-                                                width: size.width * 0.2,
-                                                height: size.height * 0.03,
+                                                width: size.width * 0.3,
+                                                height: size.height * 0.038,
                                                 child: ContainerTextWidget(
                                                   onTap: () {
                                                     Navigator.of(context).push(MaterialPageRoute(
-                                                      builder: (context) => const ReceiptScreen(),
+                                                      builder: (context) => ReceiptScreen(
+                                                        receiptId: _data['data'][index]['receipt_id'],
+                                                      ),
                                                     ));
                                                   },
                                                   padding: 4,
-                                                  text: "    View",
+                                                  text: "View Receipt",
                                                   fontSize: 16,
                                                   bgColor: yellowColor,
                                                   textColor: whiteColor,

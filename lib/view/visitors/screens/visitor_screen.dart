@@ -23,8 +23,8 @@ class _VistorScreenState extends State<VistorScreen> {
     super.initState();
     visitorListController.fetchVisitorList().then((data) {
       setState(() {
+        data['data'].sort((a, b) => DateTime.parse(b['issue_date']).compareTo(DateTime.parse(a['issue_date'])));
         _data = data;
-        // print(_data);
       });
     }).catchError((error) {
       print('Error fetching data: $error');

@@ -1,14 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/helper/helper.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
-import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/menu/widgets/menu_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class MenuScreen extends StatelessWidget {
-
-
   const MenuScreen({super.key});
 
   @override
@@ -66,21 +62,21 @@ class MenuScreen extends StatelessWidget {
               ),
             ),
             const KHeight(size: 0.04),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const CustomText(
-                  text: "CON_2025/1290",
-                  color: blackColor,
-                ),
-              ),
-            ),
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: () {},
+            //     style: ElevatedButton.styleFrom(
+            //       backgroundColor: secondaryColor,
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //     ),
+            //     child: const CustomText(
+            //       text: "CON_2025/1290",
+            //       color: blackColor,
+            //     ),
+            //   ),
+            // ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10.0),
               child: GridView.count(

@@ -18,13 +18,13 @@ class KeyValueWidget extends StatelessWidget {
         children: [
           Expanded(
               child: CustomText(
-            text: head,
+            text: head.trim(),
             fontWeight: FontWeight.w400,
             fontSize: 14,
           )),
           Expanded(
             child: CustomText(
-              text: value,
+              text: value.trim(),
               fontWeight: FontWeight.w400,
               fontSize: 16,
             ),

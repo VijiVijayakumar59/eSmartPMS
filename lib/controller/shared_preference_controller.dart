@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:esmartpms/model/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefController {
   Future<void> saveUserId(TokenModel token) async {
     final prefs = await SharedPreferences.getInstance();
-    final tokenJson = jsonEncode(token.toJson()); // Convert TokenModel to JSON string
+    final tokenJson = jsonEncode(token.toJson());
     await prefs.setString('token', tokenJson).then((value) {
       log(value.toString());
       log('success');
@@ -21,7 +20,7 @@ class SharedPrefController {
     final tokenString = prefs.getString('token');
     if (tokenString != null) {
       try {
-        final token = TokenModel.fromString(tokenString); // Parse the string back to TokenModel
+        final token = TokenModel.fromString(tokenString);
         log(token.userId);
         return token.userId;
       } catch (e) {
@@ -45,19 +44,4 @@ class SharedPrefController {
     }
     return false;
   }
-
-  // loggedIn() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('loggedIn', true);
-  // }
-
-  // logOut() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   pref.setBool('loggedIn', false);
-  // }
-
-  // Future<bool> checkLoggedIn() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   return pref.getBool('loggedIn') ?? false;
-  // }
 }

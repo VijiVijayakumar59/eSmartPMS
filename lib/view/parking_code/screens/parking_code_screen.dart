@@ -1,104 +1,244 @@
-import 'package:esmartpms/utils/color/colors.dart';
-import 'package:esmartpms/utils/size/constant_height.dart';
-import 'package:esmartpms/utils/text/custom_text.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class ParkingCodeScreen extends StatelessWidget {
+class ParkingCodeScreen extends StatefulWidget {
   const ParkingCodeScreen({super.key});
+
+  @override
+  State<ParkingCodeScreen> createState() => _ParkingCodeScreenState();
+}
+
+class _ParkingCodeScreenState extends State<ParkingCodeScreen> {
+  final MobileScannerController controller = MobileScannerController(
+    facing: CameraFacing.back,
+    formats: [BarcodeFormat.qrCode],
+    torchEnabled: false,
+    detectionTimeoutMs: 10000,
+    autoStart: false,
+  );
+
+  bool barcodeDetected = false;
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    controller.stop();
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    requestCameraPermission();
+  }
+
+  Future<void> requestCameraPermission() async {
+    final cameraPermissionStatus = await Permission.camera.request();
+    if (cameraPermissionStatus.isPermanentlyDenied || cameraPermissionStatus.isDenied) {
+      if (mounted) {
+        showPermissionAlert(context);
+      }
+    } else if (cameraPermissionStatus.isGranted) {
+      controller.start();
+    }
+  }
+
+  void showPermissionAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Camera Permission"),
+          content: const Text("Camera permission is required to scan QR codes."),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
-        child: Scaffold(
-      backgroundColor: const Color.fromARGB(255, 246, 231, 201),
-      appBar: AppBar(
-        leading: IconButton(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 246, 231, 201),
+        appBar: AppBar(
+          leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
-              color: blackColor,
-            )),
-        backgroundColor: whiteColor,
-        elevation: 2,
-        automaticallyImplyLeading: false,
-        title: Center(
-          child: Image.asset(
-            "assets/images/PMSlogo.png",
-            fit: BoxFit.contain,
-            height: size.height * 0.064,
-            width: double.infinity,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 2,
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Image.asset(
+              "assets/images/PMSlogo.png",
+              fit: BoxFit.contain,
+              height: size.height * 0.064,
+              width: double.infinity,
+            ),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              children: [
+                const Text(
+                  "VIEW PARKING QR CODE",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: size.height * 0.06),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text("Complex No "),
+                        SizedBox(height: 24),
+                        Text("Floor "),
+                        SizedBox(height: 24),
+                        Text("Parking Spot "),
+                        SizedBox(height: 24),
+                        Text("Code "),
+                        SizedBox(height: 24),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ": Gateway Complex",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          ": 12th Floor",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          ": 112",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          ": A2039",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: size.height * 0.4,
+                  width: size.width * 0.8,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: MobileScanner(
+                      controller: controller,
+                      overlayBuilder: (BuildContext context, BoxConstraints constraints) => Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.shadow,
+                            width: 25,
+                          ),
+                        ),
+                      ),
+                      fit: BoxFit.cover,
+                      onDetect: (barcodeCapture) async {
+                        if (!barcodeDetected) {
+                          barcodeDetected = true;
+                          final List<Barcode> barcodes = barcodeCapture.barcodes;
+                          if (barcodes.isNotEmpty) {
+                            final String qrScanValue = barcodes.first.rawValue ?? "No QR code value";
+                            // Log the QR code value
+                            print('QR Code Value: $qrScanValue');
+
+                            // Navigate to the ResultScreen with the QR code value
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResultScreen(qrCode: qrScanValue),
+                              ),
+                            );
+                          } else {
+                            // Log if no barcode is detected
+                            print('No barcode detected');
+                          }
+                        }
+                      },
+                      errorBuilder: (context, error, child) {
+                        return Text(error.toString());
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            children: [
-              const CustomText(
-                text: "VIEW PARKING QR CODE",
-                fontSize: 20,
-                color: themeColor,
-                fontWeight: FontWeight.w500,
-              ),
-              const KHeight(size: 0.06),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      CustomText(text: "Complex No "),
-                      KHeight(size: 0.04),
-                      CustomText(text: "Complex No "),
-                      KHeight(size: 0.04),
-                      CustomText(text: "Complex No "),
-                      KHeight(size: 0.04),
-                      CustomText(text: "Complex No "),
-                      KHeight(size: 0.04),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: ": Gateway Complex",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      KHeight(size: 0.04),
-                      CustomText(
-                        text: ": 12th Floor",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      KHeight(size: 0.04),
-                      CustomText(
-                        text: ": 112",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      KHeight(size: 0.04),
-                      CustomText(
-                        text: ": A2039",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      KHeight(size: 0.04),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                  height: size.height * 0.2,
-                  child: Image.network(
-                      "https://media.istockphoto.com/id/828088276/vector/qr-code-illustration.jpg?s=612x612&w=0&k=20&c=FnA7agr57XpFi081ZT5sEmxhLytMBlK4vzdQxt8A70M=")),
-            ],
-          ),
+    );
+  }
+}
+
+class ResultScreen extends StatelessWidget {
+  final String qrCode;
+
+  const ResultScreen({super.key, required this.qrCode});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Scan Result"),
+      ),
+      body: Center(
+        child: Text(
+          'QR Code Value: $qrCode',
+          style: const TextStyle(fontSize: 20),
         ),
       ),
-    ));
+    );
   }
 }

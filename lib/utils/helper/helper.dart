@@ -12,7 +12,7 @@ class Choice {
 bool isDeveloper = true;
 
 const List<Choice> choices = <Choice>[
-  Choice(title: 'Manage Deals', icon: Icons.assignment_add),
+  Choice(title: 'Manage Deals', icon: Icons.assignment_add), 
   Choice(title: 'Profile', icon: Icons.person_2_outlined),
   Choice(title: 'Notification', icon: Icons.notifications_none_outlined),
   Choice(title: 'My Dependants', icon: Icons.call),

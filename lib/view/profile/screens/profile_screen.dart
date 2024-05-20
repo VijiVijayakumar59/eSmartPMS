@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       emailController.text = profileData.email;
       passwordController.text = profileData.password;
       primaryContactController.text = profileData.contact;
-      permanentAddressController.text = profileData.address;
+      permanentAddressController.text = profileData.address.trim();
       nationalIdController.text = profileData.nationalId;
 
       countryController.text = profileData.country;
@@ -90,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.8,
-                                height: MediaQuery.of(context).size.height * 0.85,
+                                height: MediaQuery.of(context).size.height * 0.8,
                                 decoration: BoxDecoration(
                                   color: const Color.fromRGBO(46, 117, 189, 0.63).withOpacity(0.4),
                                   borderRadius: BorderRadius.circular(20),
@@ -100,20 +100,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(top: 8, bottom: 8, left: 28, right: 28),
                                         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                                           const CustomText(
-                                            text: "PROFILE",
-                                            fontSize: 26,
+                                            text: "PROFILE VIEW",
+                                            fontSize: 20,
                                             fontWeight: FontWeight.w600,
+                                            color: whiteColor,
                                           ),
                                           const KHeight(size: 0.01),
-                                          const CircleAvatar(
-                                            backgroundColor: whiteColor,
-                                            radius: 40,
-                                            child: Icon(
-                                              Icons.person_2_outlined,
-                                              size: 40,
-                                              color: greyColor,
-                                            ),
-                                          ),
+                                          // const CircleAvatar(
+                                          //   backgroundColor: whiteColor,
+                                          //   radius: 40,
+                                          //   child: Icon(
+                                          //     Icons.person_2_outlined,
+                                          //     size: 40,
+                                          //     color: greyColor,
+                                          //   ),
+                                          // ),
                                           const KHeight(size: 0.01),
                                           CustomTextformWidget(
                                             textColor: whiteColor,
@@ -171,17 +172,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             hintText: "Country",
                                           ),
                                           const KHeight(size: 0.01),
-                                          ElevatedButton(
-                                              style: const ButtonStyle(
-                                                backgroundColor: MaterialStatePropertyAll(whiteColor),
-                                              ),
-                                              onPressed: () {
-                                                dealController.fetchData();
-                                              },
-                                              child: const CustomText(
-                                                text: "Submit",
-                                                color: blackColor,
-                                              ))
+                                          // ElevatedButton(
+                                          //     style: const ButtonStyle(
+                                          //       backgroundColor: MaterialStatePropertyAll(whiteColor),
+                                          //     ),
+                                          //     onPressed: () {
+                                          //       dealController.fetchData();
+                                          //     },
+                                          //     child: const CustomText(
+                                          //       text: "Submit",
+                                          //       color: blackColor,
+                                          //     ))
                                         ]))))))))
           ])
         ])));

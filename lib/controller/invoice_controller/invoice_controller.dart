@@ -14,7 +14,6 @@ class InvoiceController {
     final Map<String, dynamic> payload = {
       'lead_id': token,
     };
-
     try {
       final response = await http.post(
         url,

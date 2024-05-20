@@ -23,6 +23,11 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
     super.initState();
     complaintController.fetchComplaints().then((data) {
       setState(() {
+        setState(() {
+          data['data'].sort((a, b) => DateTime.parse(b['c_date']).compareTo(DateTime.parse(a['c_date'])));
+
+          _data = data;
+        });
         _data = data;
         // print(_data);
       });
@@ -151,10 +156,10 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                             color: greyColor,
                                           ),
                                           const KHeight(size: 0.006),
-                                          CustomText(
+                                          const CustomText(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['unit_nb'],
+                                            text: "N/A",
                                             color: greyColor,
                                           ),
                                           const KHeight(size: 0.006),

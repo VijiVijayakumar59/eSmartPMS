@@ -27,7 +27,7 @@ class ContractController {
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        log(jsonResponse.toString());
+        // log(jsonResponse.toString());
         return jsonResponse;
       } else {
         throw Exception('Failed to load data');

@@ -5,7 +5,7 @@ import 'package:esmartpms/view/complaints/screens/complaint_screen.dart';
 import 'package:esmartpms/view/contact_admin/screens/contact_admin_screen.dart';
 import 'package:esmartpms/view/dependants/screens/dependants_screen.dart';
 import 'package:esmartpms/view/event_list/screens/event_list_screen.dart';
-import 'package:esmartpms/view/my_deals/screens/manage_deals_screen.dart';
+import 'package:esmartpms/view/my_deals/screens/reserved_screen.dart';
 import 'package:esmartpms/view/notification/screens/notification_screen.dart';
 import 'package:esmartpms/view/over_due_invoice.sdart/screens/over_due_invoice_screen.dart';
 import 'package:esmartpms/view/parking_code/screens/parking_code_screen.dart';
@@ -65,7 +65,7 @@ class MenuCardWidget extends StatelessWidget {
       case 'Manage Deals':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ManageDealsScreen()),
+          MaterialPageRoute(builder: (context) => const ReservedDealsScreen()),
         );
         break;
       case 'Contact Admin':

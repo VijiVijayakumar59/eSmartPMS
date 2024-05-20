@@ -1,8 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:esmartpms/controller/deals_controller/deal_view_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class DealsViewScreen extends StatefulWidget {
@@ -55,18 +58,52 @@ class _DealsViewScreenState extends State<DealsViewScreen> {
             width: double.infinity,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                  (route) => false);
+            },
+            icon: const Icon(
+              Icons.home,
+              color: greyColor,
+              size: 26,
+            ),
+          )
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
               const CustomText(
                 text: "DEAL VIEW",
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
                 color: themeColor,
+                textDecoration: TextDecoration.underline,
               ),
+              const KHeight(size: 0.008),
+              // Center(
+              //   child: ElevatedButton(
+              //     onPressed: () {},
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: secondaryColor,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10),
+              //       ),
+              //     ),
+              //     child: const CustomText(
+              //       text: "Deal Id :",
+              //       color: blackColor,
+              //     ),
+              //   ),
+              // ),
               _data.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : Card(
@@ -74,7 +111,7 @@ class _DealsViewScreenState extends State<DealsViewScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       color: primaryColor,
                       child: SizedBox(
-                        height: size.height * 1,
+                        height: size.height * 0.7,
                         // width: size.width * 1,
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -88,110 +125,110 @@ class _DealsViewScreenState extends State<DealsViewScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         CustomText(
-                                          text: "Owner Name :",
+                                          text: "Owner Name",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Agent :",
+                                          text: "Agent",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Contact Number :",
+                                          text: "Contact Number",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Alternate Mobile :",
+                                          text: "Alternate Mobile",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Email :",
+                                          text: "Email",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Date Of Birth :",
+                                          text: "Date Of Birth",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Company Name :",
+                                          text: "Company Name",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
 
                                         CustomText(
-                                          text: "Nationality :",
+                                          text: "Nationality",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Id Type :",
+                                          text: "Id Type",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Id No :",
+                                          text: "Id No",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Address :",
+                                          text: "Address",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "City :",
+                                          text: "City",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "State/Province :",
+                                          text: "State/Province",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Country :",
+                                          text: "Country",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Pin Code :",
+                                          text: "Pin Code",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Bank Name :",
+                                          text: "Bank Name",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Bank Account No :",
+                                          text: "Bank Account No",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Assigned Sales Person :",
+                                          text: "Assigned Sales Person",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
@@ -199,7 +236,7 @@ class _DealsViewScreenState extends State<DealsViewScreen> {
                                         // choose plan
                                         KHeight(size: 0.018),
                                         CustomText(
-                                          text: "Status/Remark :",
+                                          text: "Status/Remark",
                                           fontSize: 13,
                                           color: greyColor,
                                         ),
@@ -212,133 +249,133 @@ class _DealsViewScreenState extends State<DealsViewScreen> {
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['checklist_name'] ?? 'N/A',
+                                          text: ": ${_data['data']['checklist_name']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['checklist_name'] ?? 'N/A',
+                                          text: ": ${_data['data']['guest_name']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['checklist_contact_no'] ?? 'N/A',
+                                          text: ": ${_data['data']['checklist_contact_no']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['checklist_alter_mobile'] ?? 'N/A',
+                                          text: ": ${_data['data']['checklist_alter_mobile']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['checklist__email'] ?? 'N/A',
+                                          text: ": ${_data['data']['checklist__email']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_dob'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_dob']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_company_name'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_company_name']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_nationality'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_nationality']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_id_type'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_id_type']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_id_no'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_id_no']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_address'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_address']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_city'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_city']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_state'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_state']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_country'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_country']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_pincode'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_pincode']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_bank'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_bank']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_account_no'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_account_no']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['lead_assigned_by'] ?? 'N/A',
+                                          text: ": ${_data['data']['lead_assigned_by']}",
                                           color: greyColor,
                                         ),
                                         const KHeight(size: 0.017),
                                         CustomText(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          text: _data['data']['status_remark'] ?? 'N/A',
+                                          text: ": ${_data['data']['status_remark']}",
                                           color: greyColor,
                                         ),
                                         // const KHeight(size: 0.017),

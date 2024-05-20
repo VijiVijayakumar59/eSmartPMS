@@ -8,6 +8,7 @@ class CustomText extends StatelessWidget {
   final Color? color;
   final double? height;
   final int? maxLines;
+  final TextDecoration? textDecoration;
   const CustomText({
     super.key,
     required this.text,
@@ -17,6 +18,7 @@ class CustomText extends StatelessWidget {
     this.color,
     this.height,
     this.maxLines,
+    this.textDecoration,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomText extends StatelessWidget {
     return Text(
       text.trim(),
       style: TextStyle(
+        decoration: textDecoration,
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: color,
