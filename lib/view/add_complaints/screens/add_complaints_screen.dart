@@ -32,20 +32,20 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
   AddComplaintController addComplaintController = AddComplaintController();
 
   DateTime selectedDate = DateTime.now();
-  String complexValue = 'Complex :';
-  String unitValue = 'Unit :';
+  String assignedValue = 'Assigned To :';
+  String statusValue = 'Status :';
   String floorValue = 'Floor :';
 
-  var complex = [
-    'Complex :',
-    'Complex 1',
-    'Complex 2',
+  var assigned = [
+    'Assigned To :',
+    'assign1',
+    'assign2',
   ];
 
-  var unit = [
-    'Unit :',
-    'Unit 370',
-    'Unit 375',
+  var status = [
+    'Status :',
+    'Closed',
+    'Open',
   ];
 
   var floor = [
@@ -68,6 +68,7 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromRGBO(211, 227, 251, 0.902),
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
@@ -159,7 +160,12 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                               decoration: InputDecoration(
                                 fillColor: whiteColor,
                                 contentPadding: const EdgeInsets.all(8),
-                                prefixIcon: const Icon(Icons.calendar_month),
+                                prefixIcon: GestureDetector(
+                                  onTap: () {
+                                    selectDate(context);
+                                  },
+                                  child: const Icon(Icons.calendar_month),
+                                ),
                                 labelText: "Date",
                                 hintText: "Date",
                                 border: OutlineInputBorder(
@@ -177,34 +183,110 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                           ),
                         ),
                         const KWidth(size: 0.02),
-                        SizedBox(
-                          width: size.width * 0.46,
-                          child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: blackColor),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            value: complexValue,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: complex.map((String item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                complexValue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: size.width * 0.46,
+                        //   child: DropdownButtonFormField(
+                        //     decoration: InputDecoration(
+                        //       contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                        //       border: OutlineInputBorder(
+                        //         borderSide: const BorderSide(color: blackColor),
+                        //         borderRadius: BorderRadius.circular(14),
+                        //       ),
+                        //     ),
+                        //     value: complexValue,
+                        //     icon: const Icon(Icons.keyboard_arrow_down),
+                        //     items: complex.map((String item) {
+                        //       return DropdownMenuItem(
+                        //         value: item,
+                        //         child: Text(item),
+                        //       );
+                        //     }).toList(),
+                        //     onChanged: (String? newValue) {
+                        //       setState(() {
+                        //         complexValue = newValue!;
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                     const KHeight(size: 0.02),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     SizedBox(
+                    //       width: size.width * 0.45,
+                    //       child: DropdownButtonFormField(
+                    //         decoration: InputDecoration(
+                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                    //           border: OutlineInputBorder(
+                    //             borderSide: const BorderSide(color: blackColor),
+                    //             borderRadius: BorderRadius.circular(14),
+                    //           ),
+                    //         ),
+                    //         value: unitValue,
+                    //         icon: const Icon(Icons.keyboard_arrow_down),
+                    //         items: unit.map((String item) {
+                    //           return DropdownMenuItem(
+                    //             value: item,
+                    //             child: Text(item),
+                    //           );
+                    //         }).toList(),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             unitValue = newValue!;
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     const KWidth(size: 0.02),
+                    //     SizedBox(
+                    //       width: size.width * 0.45,
+                    //       child: DropdownButtonFormField(
+                    //         decoration: InputDecoration(
+                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
+                    //           border: OutlineInputBorder(
+                    //             borderSide: const BorderSide(color: blackColor),
+                    //             borderRadius: BorderRadius.circular(14),
+                    //           ),
+                    //         ),
+                    //         value: floorValue,
+                    //         icon: const Icon(Icons.keyboard_arrow_down),
+                    //         items: floor.map((String item) {
+                    //           return DropdownMenuItem(
+                    //             value: item,
+                    //             child: Text(item),
+                    //           );
+                    //         }).toList(),
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             floorValue = newValue!;
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const KHeight(size: 0.01),
+                    CustomTextformWidget(
+                      controller: descriptionController,
+                      hintText: "Action Taken *",
+                      borderColor: greyColor,
+                    ),
+                    const KHeight(size: 0.01),
+                    CustomTextformWidget(
+                      controller: descriptionController,
+                      hintText: "Resolved (Y/N) *",
+                      borderColor: greyColor,
+                    ),
+                    const KHeight(size: 0.02),
+                    CustomTextformWidget(
+                      controller: descriptionController,
+                      hintText: "Solution Remark *",
+                      borderColor: greyColor,
+                    ),
+                    const KHeight(size: 0.02),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -218,9 +300,9 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                                 borderRadius: BorderRadius.circular(14),
                               ),
                             ),
-                            value: unitValue,
+                            value: assignedValue,
                             icon: const Icon(Icons.keyboard_arrow_down),
-                            items: unit.map((String item) {
+                            items: assigned.map((String item) {
                               return DropdownMenuItem(
                                 value: item,
                                 child: Text(item),
@@ -228,7 +310,7 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                             }).toList(),
                             onChanged: (String? newValue) {
                               setState(() {
-                                unitValue = newValue!;
+                                assignedValue = newValue!;
                               });
                             },
                           ),
@@ -244,9 +326,9 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                                 borderRadius: BorderRadius.circular(14),
                               ),
                             ),
-                            value: floorValue,
+                            value: statusValue,
                             icon: const Icon(Icons.keyboard_arrow_down),
-                            items: floor.map((String item) {
+                            items: status.map((String item) {
                               return DropdownMenuItem(
                                 value: item,
                                 child: Text(item),
@@ -254,12 +336,33 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                             }).toList(),
                             onChanged: (String? newValue) {
                               setState(() {
-                                floorValue = newValue!;
+                                statusValue = newValue!;
                               });
                             },
                           ),
                         ),
                       ],
+                    ),
+                    const KHeight(size: 0.02),
+
+                    GestureDetector(
+                      onTap: () {
+                        selectDate(context);
+                      },
+                      child: TextFormField(
+                        controller: dateController,
+                        decoration: InputDecoration(
+                          fillColor: whiteColor,
+                          contentPadding: const EdgeInsets.all(8),
+                          prefixIcon: const Icon(Icons.calendar_month),
+                          labelText: "Date Closed",
+                          hintText: "Date Closed",
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(color: blackColor),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      ),
                     ),
                     const KHeight(size: 0.02),
                     Row(
@@ -295,38 +398,44 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                       style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(greenColor)),
                       onPressed: () async {
                         final token = await SharedPrefController().getUserId();
-                        // if (formKey.currentState!.validate()) {
-                        // ComplaintModel model = ComplaintModel(
-                        //   leadId: "$token",
-                        //   title: titleController.text,
-                        //   description: descriptionController.text,
-                        //   date: dateController.text,
-                        //   ownerId: token!,
-                        //   complex: complexValue,
-                        //   unit: unitValue,
-                        //   floor: floorValue,
-                        //   images: "",
-                        // );
-                        try {
-                          // await addComplaintController.addComplaint(model);
-                          await addComplaintController.addComplaint();
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                            (route) => false,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Form submitted successfully')),
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error: ${e.toString()}')),
-                          );
+                        if (formKey.currentState!.validate()) {
+                          // ComplaintModel model = ComplaintModel(
+                          //   leadId: "$token",
+                          //   title: titleController.text,
+                          //   description: descriptionController.text,
+                          //   date: dateController.text,
+                          //   ownerId: token!,
+                          //   complex: complexValue,
+                          //   unit: unitValue,
+                          //   floor: floorValue,
+                          //   images: "",
+                          // );
+
+                          try {
+                            // await addComplaintController.addComplaint(model);
+                            await addComplaintController.addComplaint(
+                              titleController.text,
+                              descriptionController.text,
+                              dateController.text,
+                            );
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                              (route) => false,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Form submitted successfully')),
+                            );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: ${e.toString()}')),
+                            );
+                          }
                         }
                       },
-                      // },
                       child: const CustomText(text: "Submit"),
                     )
                   ],
@@ -376,98 +485,3 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
     });
   }
 }
-   // const KHeight(size: 0.01),
-                    // CustomTextformWidget(
-                    //   controller: descriptionController,
-                    //   hintText: "Action Taken *",
-                    //   borderColor: greyColor,
-                    // ),
-                    // const KHeight(size: 0.01),
-                    // CustomTextformWidget(
-                    //   controller: descriptionController,
-                    //   hintText: "Resolved (Y/N) *",
-                    //   borderColor: greyColor,
-                    // ),
-                    // const KHeight(size: 0.02),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     SizedBox(
-                    //       width: size.width * 0.45,
-                    //       child: DropdownButtonFormField(
-                    //         decoration: InputDecoration(
-                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                    //           border: OutlineInputBorder(
-                    //             borderSide: const BorderSide(color: blackColor),
-                    //             borderRadius: BorderRadius.circular(14),
-                    //           ),
-                    //         ),
-                    //         value: complexValue,
-                    //         icon: const Icon(Icons.keyboard_arrow_down),
-                    //         items: complex.map((String item) {
-                    //           return DropdownMenuItem(
-                    //             value: item,
-                    //             child: Text(item),
-                    //           );
-                    //         }).toList(),
-                    //         onChanged: (String? newValue) {
-                    //           setState(() {
-                    //             complexValue = newValue!;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //     // const KWidth(size: 0.02),
-                    //     SizedBox(
-                    //       width: size.width * 0.45,
-                    //       child: DropdownButtonFormField(
-                    //         decoration: InputDecoration(
-                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                    //           border: OutlineInputBorder(
-                    //             borderSide: const BorderSide(color: blackColor),
-                    //             borderRadius: BorderRadius.circular(14),
-                    //           ),
-                    //         ),
-                    //         value: complexValue,
-                    //         icon: const Icon(Icons.keyboard_arrow_down),
-                    //         items: complex.map((String item) {
-                    //           return DropdownMenuItem(
-                    //             value: item,
-                    //             child: Text(item),
-                    //           );
-                    //         }).toList(),
-                    //         onChanged: (String? newValue) {
-                    //           setState(() {
-                    //             complexValue = newValue!;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const KHeight(size: 0.01),
-                    // CustomTextformWidget(
-                    //   controller: descriptionController,
-                    //   hintText: "Solution Remark *",
-                    //   borderColor: greyColor,
-                    // ),
-                    // const KHeight(size: 0.02),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     selectDate(context);
-                    //   },
-                    //   child: TextFormField(
-                    //     controller: dateController,
-                    //     decoration: InputDecoration(
-                    //       fillColor: whiteColor,
-                    //       contentPadding: const EdgeInsets.all(8),
-                    //       prefixIcon: const Icon(Icons.calendar_month),
-                    //       labelText: "Date Closed",
-                    //       hintText: "Date Closed",
-                    //       border: OutlineInputBorder(
-                    //         borderSide: const BorderSide(color: blackColor),
-                    //         borderRadius: BorderRadius.circular(14),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),

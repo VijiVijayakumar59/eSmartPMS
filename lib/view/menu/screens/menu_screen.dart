@@ -12,10 +12,10 @@ class MenuScreen extends StatelessWidget {
     List<Choice> displayedChoices = isDeveloper
         ? choices
         : [
-            choices[10], // Announcement
+            // choices[10], // Announcement
             choices[11], // Events
             choices[8], // Parking Code
-            choices[9], // Access Control Code
+            // choices[9], // Access Control Code
             choices[5], // Complaints
             choices[6], // Visitors
           ];

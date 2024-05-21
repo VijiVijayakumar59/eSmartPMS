@@ -136,13 +136,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             controller: passwordController,
                                             hintText: "Password",
                                           ),
-                                          const KHeight(size: 0.01),
-                                          CustomTextformWidget(
-                                            textColor: whiteColor,
-                                            borderColor: whiteColor,
-                                            controller: changePswdController,
-                                            hintText: "Change Password",
-                                          ),
+                                          // const KHeight(size: 0.01),
+                                          // CustomTextformWidget(
+                                          //   textColor: whiteColor,
+                                          //   borderColor: whiteColor,
+                                          //   controller: changePswdController,
+                                          //   hintText: "Change Password",
+                                          // ),
                                           const KHeight(size: 0.01),
                                           CustomTextformWidget(
                                             textColor: whiteColor,

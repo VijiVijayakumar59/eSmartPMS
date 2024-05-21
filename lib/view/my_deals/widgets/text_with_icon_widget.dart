@@ -1,3 +1,4 @@
+import 'package:esmartpms/utils/color/colors.dart';
 import 'package:flutter/material.dart';
 
 class TextWithIconWidget extends StatelessWidget {
@@ -28,34 +29,37 @@ class TextWithIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      width: size.width * width,
-      height: size.height * height,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: bgColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            )),
-        onPressed: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize,
+    return Card(
+      elevation: 4,
+      child: SizedBox(
+        width: size.width * width,
+        height: size.height * height,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: bgColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              )),
+          onPressed: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: fontSize,
+                  ),
                 ),
-              ),
-              Icon(
-                icon,
-                color: iconColor,
-                size: iconSize,
-              )
-            ],
+                Icon(
+                  icon,
+                  color: iconColor,
+                  size: iconSize,
+                )
+              ],
+            ),
           ),
         ),
       ),

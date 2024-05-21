@@ -13,19 +13,19 @@ class KeyValueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(6.0),
       child: Row(
         children: [
           Expanded(
               child: CustomText(
             text: head.trim(),
             fontWeight: FontWeight.w400,
-            fontSize: 14,
+            fontSize: 13,
           )),
           Expanded(
             child: CustomText(
               text: value.trim(),
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
               fontSize: 16,
             ),
           ),

@@ -22,9 +22,9 @@ class ComplaintController {
     try {
       final response = await http.get(
         uri,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
       );
 
       if (response.statusCode == 200) {

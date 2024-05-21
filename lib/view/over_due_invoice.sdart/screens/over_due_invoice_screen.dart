@@ -101,7 +101,7 @@ class _OverDueInvoiceScreenState extends State<OverDueInvoiceScreen> {
                               ),
                               child: Container(
                                 width: double.infinity,
-                                height: size.height * 0.13,
+                                height: size.height * 0.16,
                                 decoration: BoxDecoration(
                                   color: primaryColor,
                                   borderRadius: BorderRadius.circular(8),
@@ -116,25 +116,25 @@ class _OverDueInvoiceScreenState extends State<OverDueInvoiceScreen> {
                                         children: [
                                           CustomText(
                                             text: "Invoice No",
-                                            fontSize: 13,
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.007),
+                                          KHeight(size: 0.015),
                                           CustomText(
                                             text: "Issued Date",
-                                            fontSize: 13,
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.007),
+                                          KHeight(size: 0.015),
                                           CustomText(
                                             text: "Due Date",
-                                            fontSize: 13,
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.007),
+                                          KHeight(size: 0.015),
                                           CustomText(
                                             text: "Amount Pending",
-                                            fontSize: 13,
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
                                         ],
@@ -145,28 +145,28 @@ class _OverDueInvoiceScreenState extends State<OverDueInvoiceScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           CustomText(
-                                            fontSize: 15,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             text: ": ${_data['data'][index]['invoice_no']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.003),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 15,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             text: ": ${_data['data'][index]['invoice_date']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.003),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 15,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             text: ": ${_data['data'][index]['invoice_due_date']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.003),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 15,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             text: ": ${_data['data'][index]['invoice_sub_total']}",
                                             color: Colors.red,

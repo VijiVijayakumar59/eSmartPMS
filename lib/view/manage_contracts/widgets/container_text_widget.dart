@@ -23,7 +23,7 @@ class ContainerTextWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(4)),
+        decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(6)),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: CustomText(

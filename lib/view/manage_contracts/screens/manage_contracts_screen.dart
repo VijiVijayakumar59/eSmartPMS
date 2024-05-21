@@ -81,18 +81,18 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const CustomText(
-                  text: "MANAGE CONTRACTS",
+                  text: "MY CONTRACTS",
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: themeColor,
                   textDecoration: TextDecoration.underline,
                 ),
-                const KHeight(size: 0.02),
+                const KHeight(size: 0.014),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -107,11 +107,11 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 18),
                                   child: Card(
-                                    elevation: 5,
+                                    elevation: 6,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                                     color: primaryColor,
                                     child: SizedBox(
-                                      height: size.height * 0.334,
+                                      height: size.height * 0.43,
                                       width: size.width * 1,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -121,16 +121,16 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 ContainerTextWidget(
-                                                  padding: 3,
-                                                  fontSize: 12,
+                                                  padding: 1,
+                                                  fontSize: 10,
                                                   text: "Contract Generated",
                                                   bgColor: yellowColor,
                                                   textColor: whiteColor,
                                                 ),
                                                 ContainerTextWidget(
-                                                  padding: 3,
+                                                  padding: 1,
                                                   text: "Active",
-                                                  fontSize: 12,
+                                                  fontSize: 10,
                                                   bgColor: greenColor,
                                                   textColor: whiteColor,
                                                 )
@@ -143,101 +143,104 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                                   const Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
+                                                      KHeight(size: 0.01),
                                                       CustomText(
                                                         text: "Contract ID",
-                                                        fontSize: 16,
+                                                        fontSize: 14,
                                                         color: greyColor,
                                                       ),
-                                                      KHeight(size: 0.019),
+                                                      KHeight(size: 0.021),
                                                       CustomText(
                                                         text: "Complex No",
-                                                        fontSize: 16,
+                                                        fontSize: 14,
                                                         color: greyColor,
                                                       ),
-                                                      KHeight(size: 0.019),
+                                                      KHeight(size: 0.021),
                                                       CustomText(
                                                         text: "Unit N",
-                                                        fontSize: 16,
+                                                        fontSize: 14,
                                                         color: greyColor,
                                                       ),
-                                                      KHeight(size: 0.019),
+                                                      KHeight(size: 0.021),
                                                       CustomText(
                                                         text: "Lead ID",
-                                                        fontSize: 16,
+                                                        fontSize: 14,
+                                                        color: greyColor,
+                                                      ),
+                                                      KHeight(size: 0.021),
+                                                      CustomText(
+                                                        text: "Sub Division",
+                                                        fontSize: 14,
                                                         color: greyColor,
                                                       ),
                                                       KHeight(size: 0.019),
                                                       CustomText(
-                                                        text: "Sub Division",
-                                                        fontSize: 16,
+                                                        text: "Developer Name ",
+                                                        fontSize: 14,
                                                         color: greyColor,
                                                       ),
-                                                      // KHeight(size: 0.019),
-                                                      // CustomText(
-                                                      //   text: "Developer Name :",
-                                                      //   fontSize: 13,
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // KHeight(size: 0.019),
-                                                      // CustomText(
-                                                      //   text: "Rent Status :",
-                                                      //   fontSize: 13,
-                                                      //   color: greyColor,
-                                                      // ),
+                                                      KHeight(size: 0.019),
+                                                      CustomText(
+                                                        text: "Rent Status ",
+                                                        fontSize: 14,
+                                                        color: greyColor,
+                                                      ),
                                                     ],
                                                   ),
                                                   const KWidth(size: 0.04),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
+                                                      const KHeight(size: 0.02),
                                                       CustomText(
-                                                        fontSize: 18,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w600,
                                                         text: ": ${_data['data'][index]['row_contract']['contreact_ref_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 18,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w600,
                                                         text: ": ${_data['data'][index]['complex']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 18,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w600,
                                                         text: ": ${_data['data'][index]['unit_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 18,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w600,
                                                         text: ": ${_data['data'][index]['lead_id_no']}",
                                                         color: greyColor,
                                                       ),
                                                       const KHeight(size: 0.017),
                                                       CustomText(
-                                                        fontSize: 18,
+                                                        fontSize: 16,
                                                         fontWeight: FontWeight.w600,
                                                         text: ": ${_data['data'][index]['flr_no']}",
                                                         color: greyColor,
                                                       ),
-                                                      // const KHeight(size: 0.017),
-                                                      // const CustomText(
-                                                      //   fontSize: 14,
-                                                      //fontWeight: FontWeight.w600,
-                                                      //   text: "NO",
-                                                      //   color: greyColor,
-                                                      // ),
-                                                      // const KHeight(size: 0.017),
-                                                      // const ContainerTextWidget(
-                                                      //   padding: 3,
-                                                      //   text: "OPEN",
-                                                      //   bgColor: greenColor,
-                                                      //   textColor: whiteColor,
-                                                      // ),
+                                                      const KHeight(size: 0.017),
+                                                      const CustomText(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w600,
+                                                        text: ": Mr. Lost and Found Office",
+                                                        color: greyColor,
+                                                      ),
+                                                      const KHeight(size: 0.017),
+                                                      const ContainerTextWidget(
+                                                        padding: 0,
+                                                        text: "  OPEN",
+                                                        fontSize: 10,
+                                                        bgColor: greenColor,
+                                                        textColor: whiteColor,
+                                                      ),
                                                     ],
                                                   ),
                                                 ],
@@ -247,20 +250,27 @@ class _ManageContractScreenState extends State<ManageContractScreen> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
-                                                SizedBox(
+                                                Container(
+                                                  decoration: const BoxDecoration(
+                                                      color: themeColor,
+                                                      borderRadius: BorderRadius.all(
+                                                        Radius.circular(6),
+                                                      )),
                                                   width: size.width * 0.20,
                                                   height: size.height * 0.04,
-                                                  child: ContainerTextWidget(
-                                                    onTap: () {
-                                                      Navigator.of(context).push(MaterialPageRoute(
-                                                        builder: (context) => const ContractScreen(),
-                                                      ));
-                                                    },
-                                                    padding: 4,
-                                                    text: "View",
-                                                    fontSize: 16,
-                                                    bgColor: themeColor,
-                                                    textColor: whiteColor,
+                                                  child: Center(
+                                                    child: ContainerTextWidget(
+                                                      onTap: () {
+                                                        Navigator.of(context).push(MaterialPageRoute(
+                                                          builder: (context) => const ContractScreen(),
+                                                        ));
+                                                      },
+                                                      padding: 4,
+                                                      text: "View",
+                                                      fontSize: 16,
+                                                      bgColor: themeColor,
+                                                      textColor: whiteColor,
+                                                    ),
                                                   ),
                                                 ),
                                                 ContainerTextWidget(

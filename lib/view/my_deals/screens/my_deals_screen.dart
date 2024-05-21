@@ -65,7 +65,7 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
           child: Column(
             children: [
               const CustomText(
-                text: "MANAGE DEALS",
+                text: "MY DEALS",
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 color: themeColor,
@@ -86,72 +86,54 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                             color: primaryColor,
                             child: SizedBox(
-                              height: size.height * 0.3,
+                              height: size.height * 0.46,
                               width: size.width * 1,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    //   children: [
-                                    //     Row(
-                                    //       children: [
-                                    //         const CustomText(
-                                    //           text: "Start Date : ",
-                                    //           fontSize: 12,
-                                    //           color: greyColor,
-                                    //         ),
-                                    //         CustomText(
-                                    //           text: _data['data'][index]['added_date'],
-                                    //           fontSize: 12,
-                                    //           color: greenColor,
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.end,
-                                    //   children: [
-                                    //     TextWithIconWidget(
-                                    //       bgColor: themeColor,
-                                    //       height: 0.023,
-                                    //       width: 0.24,
-                                    //       onPressed: () {
-                                    //         Navigator.of(context).push(MaterialPageRoute(
-                                    //           builder: (context) => const DealsViewScreen(),
-                                    //         ));
-                                    //       },
-                                    //       fontSize: 12,
-                                    //       text: "View ",
-                                    //       icon: Icons.visibility_outlined,
-                                    //       iconSize: 14,
-                                    //       iconColor: whiteColor,
-                                    //       textColor: whiteColor,
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    //   ],
-                                    // ),
-                                    // const KHeight(size: 0.01),
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    //   children: [
-                                    //     Row(
-                                    //       children: [
-                                    //         const CustomText(
-                                    //           text: "End Date : ",
-                                    //           fontSize: 12,
-                                    //           color: greyColor,
-                                    //         ),
-                                    //         CustomText(
-                                    //           text: _data['data'][index]['row_contract']['contract_date'],
-                                    //           fontSize: 12,
-                                    //           color: greenColor,
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ],
-                                    // ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const CustomText(
+                                              text: "Start Date : ",
+                                              fontSize: 12,
+                                              color: greyColor,
+                                            ),
+                                            const KWidth(size: 0.03),
+                                            CustomText(
+                                              text: _data['data'][index]['added_date'],
+                                              fontSize: 12,
+                                              color: greenColor,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const KHeight(size: 0.01),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const CustomText(
+                                              text: "End Date : ",
+                                              fontSize: 12,
+                                              color: greyColor,
+                                            ),
+                                            const KWidth(size: 0.044),
+                                            CustomText(
+                                              text: _data['data'][index]['row_contract']['contract_date'],
+                                              fontSize: 12,
+                                              color: greenColor,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const KHeight(size: 0.01),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -161,47 +143,53 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               CustomText(
+                                                text: "Tenant Name",
+                                                fontSize: 14,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
                                                 text: "Deal ID",
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 color: greyColor,
                                               ),
                                               KHeight(size: 0.02),
                                               CustomText(
                                                 text: "Lead ID",
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 color: greyColor,
                                               ),
                                               KHeight(size: 0.02),
                                               CustomText(
                                                 text: "Complex",
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 color: greyColor,
                                               ),
                                               KHeight(size: 0.02),
                                               CustomText(
                                                 text: "Sub Division",
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 color: greyColor,
                                               ),
                                               KHeight(size: 0.02),
                                               CustomText(
-                                                text: "Unit ",
-                                                fontSize: 16,
+                                                text: "Unit No",
+                                                fontSize: 14,
                                                 color: greyColor,
                                               ),
-                                              // KHeight(size: 0.02),
-                                              // CustomText(
-                                              //   text: "Renter :",
-                                              //   fontSize: 13,
-                                              //   color: greyColor,
-                                              // ),
-                                              // KHeight(size: 0.02),
-                                              // CustomText(
-                                              //   text: "Status :",
-                                              //   fontSize: 13,
-                                              //   color: greyColor,
-                                              // ),
-                                              // KHeight(size: 0.02),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Contact No",
+                                                fontSize: 14,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.02),
+                                              CustomText(
+                                                text: "Duration",
+                                                fontSize: 13,
+                                                color: greyColor,
+                                              ),
+                                              KHeight(size: 0.01),
                                               // CustomText(
                                               //   text: "Type :",
                                               //   fontSize: 13,
@@ -226,54 +214,62 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
+                                              const CustomText(
+                                                text: ": P.P. Ramesh",
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.0146),
                                               CustomText(
                                                 text: ": ${_data['data'][index]['call_checklist_id']}",
-                                                fontSize: 18,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.w600,
                                                 color: greyColor,
                                               ),
-                                              const KHeight(size: 0.018),
+                                              const KHeight(size: 0.0146),
                                               CustomText(
                                                 text: ": ${_data['data'][index]['lead_id_no']}",
-                                                fontSize: 18,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.w600,
                                                 color: greyColor,
                                               ),
-                                              const KHeight(size: 0.018),
+                                              const KHeight(size: 0.0146),
                                               CustomText(
                                                 text: ": ${_data['data'][index]['complex']}",
-                                                fontSize: 18,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.w600,
                                                 color: greyColor,
                                               ),
-                                              const KHeight(size: 0.018),
+                                              const KHeight(size: 0.0146),
                                               CustomText(
                                                 text: ': ${_data['data'][index]['flr_no']}',
-                                                fontSize: 18,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.w600,
                                                 color: greyColor,
                                               ),
-                                              const KHeight(size: 0.018),
+                                              const KHeight(size: 0.0146),
                                               CustomText(
                                                 text: ': ${_data['data'][index]['unit_no']}',
-                                                fontSize: 18,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: greyColor,
+                                              ),
+                                              const KHeight(size: 0.0146),
+                                              CustomText(
+                                                text: ': ${_data['data'][index]['checklist_contact_no']}',
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 color: greyColor,
                                               ),
                                               const KHeight(size: 0.018),
-                                              // CustomText(
-                                              //   text: _data['data'][index]['renter_tbl_id'],
-                                              //   fontSize: 14,
-                                              //   fontWeight: FontWeight.w600,
-                                              //   color: greyColor,
-                                              // ),
-                                              // const KHeight(size: 0.018),
-                                              // const ContainerTextWidget(
-                                              //   padding: 3,
-                                              //   text: "334 - 302 days",
-                                              //   bgColor: greenColor,
-                                              //   textColor: whiteColor,
-                                              // ),
+                                              const ContainerTextWidget(
+                                                padding: 1,
+                                                fontSize: 12,
+                                                text: "334 - 302 days",
+                                                bgColor: greenColor,
+                                                textColor: whiteColor,
+                                              ),
                                               // const KHeight(size: 0.018),
                                               // const CustomText(
                                               //   text: "Null",
@@ -312,7 +308,7 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
                                         //   textColor: whiteColor,
                                         // ),
                                         TextWithIconWidget(
-                                          bgColor: themeColor,
+                                          bgColor: yellowColor,
                                           height: 0.039,
                                           width: 0.29,
                                           onPressed: () {
@@ -336,7 +332,7 @@ class _ReservedDealsWidgetState extends State<ReservedDealsScreen> {
                                           padding: 4,
                                           text: "View Contract",
                                           fontSize: 16,
-                                          bgColor: themeColor,
+                                          bgColor: yellowColor,
                                           textColor: whiteColor,
                                         ),
                                       ],

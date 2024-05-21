@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'package:esmartpms/controller/shared_preference_controller.dart';
 import 'package:http/http.dart' as http;
 
 class AddComplaintController {
-  addComplaint() async {
+  addComplaint(String title, String description, String date) async {
+    // final data = await SharedPrefController().getData();
+    // final token = await SharedPrefController().getUserId();
+    // print(data?.unitNumber.toString());
+    // print(token.toString());
     final url = Uri.parse('https://epenhasia.com/api/add_complain.php');
 
     try {
@@ -11,29 +17,27 @@ class AddComplaintController {
         // headers: {'Content-Type': 'application/json'},
         body: {
           "lead_id": "442",
-          "title": "Test Complaint 2024",
-          "description": "Test Description",
-          "date": "2024-05-13",
-          "owner_id": "440",
+          //  token,
+          "title": title,
+          "description": description,
+          "date": date,
+          "owner_id": "442",
           "complex": "1",
-          "unit": "370",
-          "floor": "96",
-          "images": null,
+          // data?.complexNo,
+          "unit": " data?.unitNumber",
+          "floor": " data?.floorNo",
+          "images": "",
         },
       );
 
       if (response.statusCode == 200) {
-        // Successfully posted the complaint
         log('added complaint');
-        print(response.body);
-
+        print(jsonDecode(response.body));
         print('Complaint posted successfully');
       } else {
-        // Handle the error
         print('Failed to post complaint: ${response.statusCode}');
       }
     } catch (e) {
-      // Handle any exceptions
       print('Exception occurred: $e');
     }
   }

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:esmartpms/controller/complaint_controller/complaint_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
@@ -18,23 +16,29 @@ class ComplaintScreen extends StatefulWidget {
 class _ComplaintScreenState extends State<ComplaintScreen> {
   ComplaintController complaintController = ComplaintController();
   Map<String, dynamic> _data = {};
+
   @override
   void initState() {
     super.initState();
     complaintController.fetchComplaints().then((data) {
       setState(() {
-        setState(() {
-          data['data'].sort((a, b) => DateTime.parse(b['c_date']).compareTo(DateTime.parse(a['c_date'])));
-
-          _data = data;
-        });
+        data['data'].sort((a, b) => _parseDate(b['c_date']).compareTo(_parseDate(a['c_date'])));
         _data = data;
-        // print(_data);
       });
     }).catchError((error) {
       print('Error fetching data: $error');
       // Handle error
     });
+  }
+
+  DateTime _parseDate(String dateString) {
+    try {
+      return DateTime.parse(dateString);
+    } catch (e) {
+      print('Error parsing date: $e');
+      // Return a default date if parsing fails
+      return DateTime(1970, 1, 1);
+    }
   }
 
   @override
@@ -85,6 +89,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                         itemBuilder: (context, index) {
                           Color containerColor = index % 2 == 0 ? secondaryColor : lightGreen;
 
+                          var complaint = _data['data'][index];
+
                           return Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Card(
@@ -94,7 +100,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                               ),
                               child: Container(
                                 width: double.infinity,
-                                height: size.height * 0.2,
+                                height: size.height * 0.24,
                                 decoration: BoxDecoration(
                                   color: containerColor,
                                   borderRadius: BorderRadius.circular(8),
@@ -108,38 +114,38 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           CustomText(
-                                            text: "Complaint Code :",
-                                            fontSize: 13,
+                                            text: "Complaint Code",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.008),
+                                          KHeight(size: 0.016),
                                           CustomText(
-                                            text: "Entity :",
-                                            fontSize: 13,
+                                            text: "Entity",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.008),
+                                          KHeight(size: 0.016),
                                           CustomText(
-                                            text: "Date :",
-                                            fontSize: 13,
+                                            text: "Date",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.008),
+                                          KHeight(size: 0.016),
                                           CustomText(
-                                            text: "Title :",
-                                            fontSize: 13,
+                                            text: "Title",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.008),
+                                          KHeight(size: 0.016),
                                           CustomText(
-                                            text: "Descriptions :",
-                                            fontSize: 13,
+                                            text: "Descriptions",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
-                                          KHeight(size: 0.008),
+                                          KHeight(size: 0.016),
                                           CustomText(
-                                            text: "Actions :",
-                                            fontSize: 13,
+                                            text: "Actions",
+                                            fontSize: 14,
                                             color: greyColor,
                                           ),
                                         ],
@@ -149,69 +155,58 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.end,
+                                          //   children: [
+                                          //     IconButton(
+                                          //       onPressed: () {},
+                                          //       icon: const Icon(Icons.visibility),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['complaint_code'],
+                                            text: ": ${complaint['complaint_code']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.006),
+                                          const KHeight(size: 0.012),
                                           const CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: "N/A",
+                                            text: ": N/A",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.006),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['c_date'],
+                                            text: ": ${complaint['c_date']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.006),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['c_title'],
+                                            text: ": ${complaint['c_title']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.006),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['c_description'],
+                                            text: ": ${complaint['c_description']}",
                                             color: greyColor,
                                           ),
-                                          const KHeight(size: 0.006),
+                                          const KHeight(size: 0.012),
                                           CustomText(
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
-                                            text: _data['data'][index]['status'],
+                                            text: ": ${complaint['status']}",
                                             color: Colors.red,
                                           ),
                                         ],
                                       ),
-                                      // Row(
-                                      //   mainAxisAlignment: MainAxisAlignment.end,
-                                      //   children: [
-                                      //     IconButton(
-                                      //       onPressed: () {},
-                                      //       icon: const Icon(Icons.edit),
-                                      //       color: Colors.blue,
-                                      //     ),
-                                      //     IconButton(
-                                      //       onPressed: () {},
-                                      //       icon: const Icon(Icons.delete),
-                                      //       color: Colors.red,
-                                      //     ),
-                                      //     IconButton(
-                                      //       onPressed: () {},
-                                      //       icon: const Icon(Icons.archive),
-                                      //       color: Colors.green,
-                                      //     ),
-                                      //   ],
-                                      // ),
                                     ],
                                   ),
                                 ),

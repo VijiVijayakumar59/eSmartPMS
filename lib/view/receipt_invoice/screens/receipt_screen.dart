@@ -165,13 +165,13 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                                               color: greyColor,
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.04,
+                                              height: size.height * 0.025,
                                               width: size.width * 0.28,
                                               child: CustomText(
                                                 text: "${_data['data']['receipt']['receipt_customer_name']}",
                                                 fontSize: 11,
                                                 maxLines: 3,
-                                                textAlign: TextAlign.end,
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ],
@@ -271,10 +271,10 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                                           borderRadius: BorderRadius.circular(8),
                                           color: const Color.fromRGBO(171, 198, 235, 0.902),
                                         ),
-                                        height: size.height * 0.15,
+                                        height: size.height * 0.16,
                                         width: double.infinity,
                                         child: Padding(
-                                            padding: const EdgeInsets.all(3.0),
+                                            padding: const EdgeInsets.all(6.0),
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.center,

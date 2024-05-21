@@ -58,23 +58,23 @@ class _ContractScreenState extends State<ContractScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
                 const CustomText(
-                  text: "CONTRACT",
+                  text: "CONTRACT DETAILS",
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                   color: themeColor,
                 ),
                 const KHeight(size: 0.01),
-                const CustomText(
-                  text: "Mr. Lost and Found Office",
-                  fontSize: 24,
-                ),
-                const KHeight(size: 0.01),
+                // const CustomText(
+                //   text: "P.P Ramesh, S-CON/2021-006",
+                //   fontSize: 24,
+                // ),
+                // const KHeight(size: 0.01),
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
