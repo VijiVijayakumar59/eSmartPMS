@@ -2,7 +2,6 @@
 
 import 'dart:io';
 import 'package:esmartpms/controller/complaint_controller/add_complaint_controller.dart';
-import 'package:esmartpms/controller/shared_preference_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/custom_textform/textform_widget.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
@@ -183,91 +182,9 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                           ),
                         ),
                         const KWidth(size: 0.02),
-                        // SizedBox(
-                        //   width: size.width * 0.46,
-                        //   child: DropdownButtonFormField(
-                        //     decoration: InputDecoration(
-                        //       contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                        //       border: OutlineInputBorder(
-                        //         borderSide: const BorderSide(color: blackColor),
-                        //         borderRadius: BorderRadius.circular(14),
-                        //       ),
-                        //     ),
-                        //     value: complexValue,
-                        //     icon: const Icon(Icons.keyboard_arrow_down),
-                        //     items: complex.map((String item) {
-                        //       return DropdownMenuItem(
-                        //         value: item,
-                        //         child: Text(item),
-                        //       );
-                        //     }).toList(),
-                        //     onChanged: (String? newValue) {
-                        //       setState(() {
-                        //         complexValue = newValue!;
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
                       ],
                     ),
                     const KHeight(size: 0.02),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     SizedBox(
-                    //       width: size.width * 0.45,
-                    //       child: DropdownButtonFormField(
-                    //         decoration: InputDecoration(
-                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                    //           border: OutlineInputBorder(
-                    //             borderSide: const BorderSide(color: blackColor),
-                    //             borderRadius: BorderRadius.circular(14),
-                    //           ),
-                    //         ),
-                    //         value: unitValue,
-                    //         icon: const Icon(Icons.keyboard_arrow_down),
-                    //         items: unit.map((String item) {
-                    //           return DropdownMenuItem(
-                    //             value: item,
-                    //             child: Text(item),
-                    //           );
-                    //         }).toList(),
-                    //         onChanged: (String? newValue) {
-                    //           setState(() {
-                    //             unitValue = newValue!;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //     const KWidth(size: 0.02),
-                    //     SizedBox(
-                    //       width: size.width * 0.45,
-                    //       child: DropdownButtonFormField(
-                    //         decoration: InputDecoration(
-                    //           contentPadding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.06),
-                    //           border: OutlineInputBorder(
-                    //             borderSide: const BorderSide(color: blackColor),
-                    //             borderRadius: BorderRadius.circular(14),
-                    //           ),
-                    //         ),
-                    //         value: floorValue,
-                    //         icon: const Icon(Icons.keyboard_arrow_down),
-                    //         items: floor.map((String item) {
-                    //           return DropdownMenuItem(
-                    //             value: item,
-                    //             child: Text(item),
-                    //           );
-                    //         }).toList(),
-                    //         onChanged: (String? newValue) {
-                    //           setState(() {
-                    //             floorValue = newValue!;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const KHeight(size: 0.01),
                     CustomTextformWidget(
                       controller: descriptionController,
                       hintText: "Action Taken *",
@@ -286,7 +203,6 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                       borderColor: greyColor,
                     ),
                     const KHeight(size: 0.02),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -344,7 +260,6 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                       ],
                     ),
                     const KHeight(size: 0.02),
-
                     GestureDetector(
                       onTap: () {
                         selectDate(context);
@@ -397,7 +312,7 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                     ElevatedButton(
                       style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(greenColor)),
                       onPressed: () async {
-                        final token = await SharedPrefController().getUserId();
+                        // final token = await SharedPrefController().getUserId();
                         if (formKey.currentState!.validate()) {
                           // ComplaintModel model = ComplaintModel(
                           //   leadId: "$token",

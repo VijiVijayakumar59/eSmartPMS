@@ -9,7 +9,7 @@ import 'package:esmartpms/view/contract/screens/contract_screen.dart';
 import 'package:esmartpms/view/home/screens/home_screen.dart';
 
 import 'package:esmartpms/view/invoice_listing/screens/invoice_listing_screen.dart';
-import 'package:esmartpms/view/manage_contracts/widgets/container_text_widget.dart';
+import 'package:esmartpms/view/my_contracts/widgets/container_text_widget.dart';
 import 'package:esmartpms/view/receipt_listing/screens/receipt_listing_screen.dart';
 import 'package:flutter/material.dart';
 

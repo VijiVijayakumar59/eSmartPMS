@@ -5,8 +5,8 @@ import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/deal_view/screens/deals_view_screen.dart';
-import 'package:esmartpms/view/manage_contracts/screens/manage_contracts_screen.dart';
-import 'package:esmartpms/view/manage_contracts/widgets/container_text_widget.dart';
+import 'package:esmartpms/view/my_contracts/screens/manage_contracts_screen.dart';
+import 'package:esmartpms/view/my_contracts/widgets/container_text_widget.dart';
 import 'package:esmartpms/view/my_deals/widgets/text_with_icon_widget.dart';
 import 'package:flutter/material.dart';
 

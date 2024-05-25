@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:esmartpms/controller/shared_preference_controller.dart';
-import 'package:esmartpms/model/add_complaint_model.dart';
 import 'package:http/http.dart' as http;
 
 class DealController {

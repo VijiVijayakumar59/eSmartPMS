@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, use_rethrow_when_possible
 
 import 'dart:convert';
-import 'dart:developer';
 import 'package:esmartpms/controller/shared_preference_controller.dart';
 import 'package:http/http.dart' as http;
 
