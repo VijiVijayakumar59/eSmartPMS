@@ -24,12 +24,6 @@ class DealController {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         print(jsonResponse);
-        // final savingData = AddComplaintModel(
-        //   complexNo: jsonResponse['data'][0]['complex'],
-        //   floorNo: jsonResponse['data'][0]['flr_no'],
-        //   unitNumber: jsonResponse['data'][0]['unit_no'],
-        // );
-        // await SharedPrefController().saveData(savingData);
         return jsonResponse;
       } else {
         throw Exception('Failed to load data');

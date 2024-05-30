@@ -2,9 +2,9 @@
 
 import 'package:esmartpms/controller/invoice_controller/invoice_view_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
+import 'package:esmartpms/utils/key_value/key_value_widget.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
-import 'package:esmartpms/view/contract_details/widgets/key_value_widget.dart';
 import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -116,27 +116,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // const Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.end,
-                              //   children: [
-                              //     CustomText(
-                              //       text: "The Bridge Club Residence & Office Oxley Worldbridge Asset Management(Cambodia)Co.Ltd",
-                              //       fontSize: 16,
-                              //       fontWeight: FontWeight.w500,
-                              //       height: 1.4,
-                              //       textAlign: TextAlign.end,
-                              //     ),
-                              //     KHeight(size: 0.007),
-                              //     CustomText(
-                              //       text: "No:1 Street 278,Sangkat Boeung Keng Kang 1, Khan Chamkarmon Phnom Penh, Cambodia",
-                              //       fontSize: 13,
-                              //       height: 1.5,
-                              //       textAlign: TextAlign.end,
-                              //     ),
-                              //   ],
-                              // ),
                               const KHeight(size: 0.04),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -65,7 +65,7 @@ class MenuCardWidget extends StatelessWidget {
       case 'My Deals':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ReservedDealsScreen()),
+          MaterialPageRoute(builder: (context) => const MyDealsScreen()),
         );
         break;
       case 'Contact Admin':

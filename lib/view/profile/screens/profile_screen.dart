@@ -105,17 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             fontWeight: FontWeight.w600,
                                             color: whiteColor,
                                           ),
-                                          const KHeight(size: 0.01),
-                                          // const CircleAvatar(
-                                          //   backgroundColor: whiteColor,
-                                          //   radius: 40,
-                                          //   child: Icon(
-                                          //     Icons.person_2_outlined,
-                                          //     size: 40,
-                                          //     color: greyColor,
-                                          //   ),
-                                          // ),
-                                          const KHeight(size: 0.01),
+                                          const KHeight(size: 0.04),
                                           CustomTextformWidget(
                                             textColor: whiteColor,
                                             borderColor: whiteColor,
@@ -136,13 +126,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             controller: passwordController,
                                             hintText: "Password",
                                           ),
-                                          // const KHeight(size: 0.01),
-                                          // CustomTextformWidget(
-                                          //   textColor: whiteColor,
-                                          //   borderColor: whiteColor,
-                                          //   controller: changePswdController,
-                                          //   hintText: "Change Password",
-                                          // ),
                                           const KHeight(size: 0.01),
                                           CustomTextformWidget(
                                             textColor: whiteColor,
@@ -172,17 +155,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             hintText: "Country",
                                           ),
                                           const KHeight(size: 0.01),
-                                          // ElevatedButton(
-                                          //     style: const ButtonStyle(
-                                          //       backgroundColor: MaterialStatePropertyAll(whiteColor),
-                                          //     ),
-                                          //     onPressed: () {
-                                          //       dealController.fetchData();
-                                          //     },
-                                          //     child: const CustomText(
-                                          //       text: "Submit",
-                                          //       color: blackColor,
-                                          //     ))
                                         ]))))))))
           ])
         ])));

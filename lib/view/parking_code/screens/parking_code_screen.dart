@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:esmartpms/view/parking_code/screens/result_screen.dart';
+import 'package:esmartpms/view/parking_code/widgets/parking_data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -130,43 +132,7 @@ class _ParkingCodeScreenState extends State<ParkingCodeScreen> {
                         SizedBox(height: 24),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ": Gateway Complex",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                        Text(
-                          ": 12th Floor",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                        Text(
-                          ": 112",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                        Text(
-                          ": A2039",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 24),
-                      ],
-                    ),
+                    ParkingDataWidget(),
                   ],
                 ),
                 SizedBox(
@@ -216,27 +182,6 @@ class _ParkingCodeScreenState extends State<ParkingCodeScreen> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ResultScreen extends StatelessWidget {
-  final String qrCode;
-
-  const ResultScreen({super.key, required this.qrCode});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Scan Result"),
-      ),
-      body: Center(
-        child: Text(
-          'QR Code Value: $qrCode',
-          style: const TextStyle(fontSize: 20),
         ),
       ),
     );

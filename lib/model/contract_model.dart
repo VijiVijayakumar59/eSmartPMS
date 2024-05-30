@@ -187,7 +187,3 @@ Map<String, String> meterReading = {
   'Billing Type': 'Open',
   'Billing Option': 'No',
 };
-// List<Map<String, String>> contract = [
-//   leadPlanDetails,
-//   unitDetails,
-// ];

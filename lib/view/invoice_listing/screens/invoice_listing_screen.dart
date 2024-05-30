@@ -5,6 +5,7 @@ import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:esmartpms/view/invoice/screens/invoice_screen.dart';
+import 'package:esmartpms/view/invoice_listing/widgets/my_invoices_title_widget.dart';
 import 'package:esmartpms/view/my_contracts/widgets/container_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -25,15 +26,12 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
     super.initState();
     invoiceController.fetchInvoices().then((data) {
       setState(() {
-        // Sort the invoices by the latest date first
         data['data'].sort((a, b) => DateTime.parse(b['invoice_date']).compareTo(DateTime.parse(a['invoice_date'])));
         _data = data;
         invoiceId = data['invoice_id'];
-        // print(_data);
       });
     }).catchError((error) {
       print('Error fetching data: $error');
-      // Handle error
     });
   }
 
@@ -149,47 +147,7 @@ class _InvoiceListingScreenState extends State<InvoiceListingScreen> {
                                               padding: const EdgeInsets.all(8.0),
                                               child: Row(
                                                 children: [
-                                                  const Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      CustomText(
-                                                        text: "Invoice No",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      KHeight(size: 0.02),
-                                                      CustomText(
-                                                        text: "Issue Date",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      KHeight(size: 0.02),
-                                                      CustomText(
-                                                        text: "Complex No",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      KHeight(size: 0.02),
-                                                      CustomText(
-                                                        text: "Sub Division",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      KHeight(size: 0.02),
-                                                      CustomText(
-                                                        text: "Unit No",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      KHeight(size: 0.02),
-                                                      CustomText(
-                                                        text: "Invoice Amount",
-                                                        fontSize: 14,
-                                                        color: greyColor,
-                                                      ),
-                                                      // KHeight(size: 0.02),
-                                                    ],
-                                                  ),
+                                                  const MyInvoicesTitleWidget(),
                                                   const KWidth(size: 0.04),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,

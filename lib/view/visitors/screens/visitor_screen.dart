@@ -6,6 +6,7 @@ import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/add_visitor/screens/add_visitor_screen.dart';
+import 'package:esmartpms/view/visitors/widgets/visitor_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class VistorScreen extends StatefulWidget {
@@ -97,65 +98,7 @@ class _VistorScreenState extends State<VistorScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    const Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        CustomText(
-                                          text: "Unit No :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Issue Date :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Name :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Mobile No :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Address :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Floor No :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "In-Time :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Out-Time :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                        KHeight(size: 0.01),
-                                        CustomText(
-                                          text: "Closed :",
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                      ],
-                                    ),
+                                    const VisitorsTitleWidget(),
                                     const KWidth(size: 0.04),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.center,

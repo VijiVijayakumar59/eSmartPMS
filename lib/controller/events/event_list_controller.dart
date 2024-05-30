@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class EventListController {
@@ -10,6 +11,7 @@ class EventListController {
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
+        log(data.toString());
         return data;
       } else {
         throw Exception('Failed to load data');

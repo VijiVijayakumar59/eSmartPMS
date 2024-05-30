@@ -3,6 +3,7 @@ import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/event_list/widgets/event_list_itle_widget.dart';
 import 'package:flutter/material.dart';
 
 class EventListScreen extends StatefulWidget {
@@ -16,8 +17,6 @@ class _EventListScreenState extends State<EventListScreen> {
   final EventListController eventListController = EventListController();
   List<dynamic> _events = [];
   bool _isLoading = true;
-  String _errorMessage = '';
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +33,6 @@ class _EventListScreenState extends State<EventListScreen> {
       });
     } catch (error) {
       setState(() {
-        _errorMessage = 'Error fetching data: $error';
         _isLoading = false;
       });
     }
@@ -78,11 +76,7 @@ class _EventListScreenState extends State<EventListScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: _isLoading
-              ? const CircularProgressIndicator()
-              : _errorMessage.isNotEmpty
-                  ? Text(_errorMessage)
-                  : _buildEventList(),
+          child: _isLoading ? const CircularProgressIndicator() : _buildEventList(),
         ),
       ),
     );
@@ -91,102 +85,65 @@ class _EventListScreenState extends State<EventListScreen> {
   Widget _buildEventList() {
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const CustomText(
-            text: "EVENT LIST",
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: themeColor,
-          ),
-          const KHeight(size: 0.01),
-          _events.isEmpty
-              ? const Center(child: CustomText(text: "No Data Available"))
-              : ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _events.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var event = _events[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Card(
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      const CustomText(
+        text: "EVENT LIST",
+        fontSize: 22,
+        fontWeight: FontWeight.w600,
+        color: themeColor,
+      ),
+      const KHeight(size: 0.01),
+      _events.isEmpty
+          ? const Center(child: CustomText(text: "No Data Available"))
+          : ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _events.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var event = _events[index];
+                return Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Card(
                         elevation: 4,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Container(
-                          width: double.infinity,
-                          height: size.height * 0.12,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomText(
-                                      text: "Title",
-                                      fontSize: 14,
-                                      color: greyColor,
-                                    ),
-                                    KHeight(size: 0.01),
-                                    CustomText(
-                                      text: "Venue",
-                                      fontSize: 14,
-                                      color: greyColor,
-                                    ),
-                                    KHeight(size: 0.01),
-                                    CustomText(
-                                      text: "Status",
-                                      fontSize: 14,
-                                      color: greyColor,
-                                    ),
-                                  ],
-                                ),
-                                const KWidth(size: 0.04),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomText(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      text: ": ${event['title'] ?? 'N/A'}",
-                                      color: greyColor,
-                                    ),
-                                    const KHeight(size: 0.007),
-                                    CustomText(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      text: ": ${event['venue'] ?? 'N/A'}",
-                                      color: greyColor,
-                                    ),
-                                    const KHeight(size: 0.007),
-                                    CustomText(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      text: ": ${event['status'] ?? 'N/A'}",
-                                      color: yellowColor,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            width: double.infinity,
+                            height: size.height * 0.12,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-        ],
-      ),
-    );
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(children: [
+                                  const EventListTitleWidget(),
+                                  const KWidth(size: 0.04),
+                                  Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                    CustomText(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      text: ": ${event['title']}",
+                                      color: greyColor,
+                                    ),
+                                    const KHeight(size: 0.007),
+                                    CustomText(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      text: ": ${event['venue']}",
+                                      color: greyColor,
+                                    ),
+                                    const KHeight(size: 0.007),
+                                    CustomText(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      text: ": ${event['status']}",
+                                      color: yellowColor,
+                                    )
+                                  ])
+                                ])))));
+              })
+    ]));
   }
 }

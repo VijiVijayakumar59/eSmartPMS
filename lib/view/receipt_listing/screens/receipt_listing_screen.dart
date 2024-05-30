@@ -8,6 +8,7 @@ import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/home/screens/home_screen.dart';
 import 'package:esmartpms/view/my_contracts/widgets/container_text_widget.dart';
 import 'package:esmartpms/view/receipt_invoice/screens/receipt_screen.dart';
+import 'package:esmartpms/view/receipt_listing/widgets/receipt_listing_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ReceiptListingScreen extends StatefulWidget {
@@ -133,63 +134,7 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Row(
                                               children: [
-                                                const Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    CustomText(
-                                                      text: "Receipt No",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Receipt Date",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Complex",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Sub Division",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Unit",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Payment Method",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    // KHeight(size: 0.02),
-                                                    // CustomText(
-                                                    //   text: "Remarks :"                                                    //   fontSize: 14,
-                                                    //   color: greyColor,
-                                                    // ),
-                                                    KHeight(size: 0.02),
-                                                    CustomText(
-                                                      text: "Amount",
-                                                      fontSize: 14,
-                                                      color: greyColor,
-                                                    ),
-                                                    KHeight(size: 0.02),
-                                                    // CustomText(
-                                                    //   text: "Status :",
-                                                    //   fontSize: 13,
-                                                    //   color: greyColor,
-                                                    // ),
-                                                  ],
-                                                ),
+                                                const ReceiptListingTitleWidget(),
                                                 const KWidth(size: 0.04),
                                                 Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,13 +181,6 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                                       text: ": ${_data['data'][index]['receipt_payment_method']}",
                                                       color: greyColor,
                                                     ),
-                                                    // const KHeight(size: 0.0176),
-                                                    // CustomText(
-                                                    //   fontSize: 16,
-                                                    //   fontWeight: FontWeight.w600,
-                                                    //   text: ": ${_data['data'][index]['unit_no'],
-//  }"                                                   //   color: greyColor,
-                                                    // ),
                                                     const KHeight(size: 0.0176),
                                                     CustomText(
                                                       fontSize: 16,
@@ -251,13 +189,6 @@ class _ReceiptListingScreenState extends State<ReceiptListingScreen> {
                                                       color: greyColor,
                                                     ),
                                                     const KHeight(size: 0.027),
-                                                    // CustomText(
-                                                    //   fontSize: 16,
-                                                    //   fontWeight: FontWeight.w600,
-                                                    //   text: _data['data'][index]['unit_no'],
-                                                    //   color: greyColor,
-                                                    // ),
-                                                    // const KHeight(size: 0.0126),
                                                   ],
                                                 ),
                                               ],

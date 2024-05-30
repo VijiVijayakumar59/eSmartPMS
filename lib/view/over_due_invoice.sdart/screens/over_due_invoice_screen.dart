@@ -3,6 +3,7 @@ import 'package:esmartpms/utils/color/colors.dart';
 import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
+import 'package:esmartpms/view/over_due_invoice.sdart/widgets/over_due_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class OverDueInvoiceScreen extends StatefulWidget {
@@ -110,35 +111,7 @@ class _OverDueInvoiceScreenState extends State<OverDueInvoiceScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
                                     children: [
-                                      const Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          CustomText(
-                                            text: "Invoice No",
-                                            fontSize: 14,
-                                            color: greyColor,
-                                          ),
-                                          KHeight(size: 0.015),
-                                          CustomText(
-                                            text: "Issued Date",
-                                            fontSize: 14,
-                                            color: greyColor,
-                                          ),
-                                          KHeight(size: 0.015),
-                                          CustomText(
-                                            text: "Due Date",
-                                            fontSize: 14,
-                                            color: greyColor,
-                                          ),
-                                          KHeight(size: 0.015),
-                                          CustomText(
-                                            text: "Amount Pending",
-                                            fontSize: 14,
-                                            color: greyColor,
-                                          ),
-                                        ],
-                                      ),
+                                      const OverDueTitleWidget(),
                                       const KWidth(size: 0.04),
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,

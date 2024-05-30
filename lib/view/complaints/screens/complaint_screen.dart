@@ -4,6 +4,7 @@ import 'package:esmartpms/utils/size/constant_height.dart';
 import 'package:esmartpms/utils/size/constant_width.dart';
 import 'package:esmartpms/utils/text/custom_text.dart';
 import 'package:esmartpms/view/add_complaints/screens/add_complaints_screen.dart';
+import 'package:esmartpms/view/complaints/widgets/complaint_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintScreen extends StatefulWidget {
@@ -155,47 +156,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                       ),
                                       child: Row(
                                         children: [
-                                          const Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              CustomText(
-                                                text: "Complaint Code",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                              KHeight(size: 0.016),
-                                              CustomText(
-                                                text: "Entity",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                              KHeight(size: 0.016),
-                                              CustomText(
-                                                text: "Date",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                              KHeight(size: 0.016),
-                                              CustomText(
-                                                text: "Title",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                              KHeight(size: 0.016),
-                                              CustomText(
-                                                text: "Descriptions",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                              KHeight(size: 0.016),
-                                              CustomText(
-                                                text: "Actions",
-                                                fontSize: 14,
-                                                color: greyColor,
-                                              ),
-                                            ],
-                                          ),
+                                          const ComplaintTitleWidget(),
                                           const KWidth(size: 0.04),
                                           Column(
                                             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-
 import 'dart:io';
 import 'package:esmartpms/controller/complaint_controller/add_complaint_controller.dart';
 import 'package:esmartpms/utils/color/colors.dart';
@@ -35,23 +34,9 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
   String statusValue = 'Status :';
   String floorValue = 'Floor :';
 
-  var assigned = [
-    'Assigned To :',
-    'assign1',
-    'assign2',
-  ];
-
-  var status = [
-    'Status :',
-    'Closed',
-    'Open',
-  ];
-
-  var floor = [
-    'Floor :',
-    'Floor 97',
-    'Floor 34',
-  ];
+  var assigned = ['Assigned To :', 'assign1', 'assign2'];
+  var status = ['Status :', 'Closed', 'Open'];
+  var floor = ['Floor :', 'Floor 97', 'Floor 34'];
 
   List<File> selectedImages = [];
   final picker = ImagePicker();
@@ -74,20 +59,12 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-                color: blackColor,
-              )),
+              icon: const Icon(Icons.arrow_back_ios_new, color: blackColor)),
           backgroundColor: whiteColor,
           elevation: 2,
           automaticallyImplyLeading: false,
           title: Center(
-            child: Image.asset(
-              "assets/images/PMSlogo.png",
-              fit: BoxFit.contain,
-              height: size.height * 0.064,
-              width: double.infinity,
-            ),
+            child: Image.asset("assets/images/PMSlogo.png", fit: BoxFit.contain, height: size.height * 0.064, width: double.infinity),
           ),
           actions: [
             IconButton(
@@ -99,11 +76,7 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                     ),
                     (route) => false);
               },
-              icon: const Icon(
-                Icons.home,
-                color: greyColor,
-                size: 26,
-              ),
+              icon: const Icon(Icons.home, color: greyColor, size: 26),
             )
           ],
         ),
@@ -167,10 +140,7 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                                 ),
                                 labelText: "Date",
                                 hintText: "Date",
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: blackColor),
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
+                                border: OutlineInputBorder(borderSide: const BorderSide(color: blackColor), borderRadius: BorderRadius.circular(14)),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -312,22 +282,8 @@ class _AddComplaintScreenState extends State<AddComplaintScreen> {
                     ElevatedButton(
                       style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(greenColor)),
                       onPressed: () async {
-                        // final token = await SharedPrefController().getUserId();
                         if (formKey.currentState!.validate()) {
-                          // ComplaintModel model = ComplaintModel(
-                          //   leadId: "$token",
-                          //   title: titleController.text,
-                          //   description: descriptionController.text,
-                          //   date: dateController.text,
-                          //   ownerId: token!,
-                          //   complex: complexValue,
-                          //   unit: unitValue,
-                          //   floor: floorValue,
-                          //   images: "",
-                          // );
-
                           try {
-                            // await addComplaintController.addComplaint(model);
                             await addComplaintController.addComplaint(
                               titleController.text,
                               descriptionController.text,
